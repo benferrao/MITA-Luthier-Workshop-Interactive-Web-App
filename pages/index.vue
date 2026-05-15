@@ -84,7 +84,7 @@
       </div>
     </aside>
 
-    <footer class="app-footer">
+    <div class="tour-link"><NuxtLink to="/tour" class="tour-btn">🎻 Take the Guided Tour</NuxtLink></div><footer class="app-footer">
       <p>MITA</p>
     </footer>
   </div>
@@ -401,4 +401,9 @@ body {
   .hero-overlay p { font-size: 13px; }
   .app-container { padding-bottom: 60px; }
 }
+</style>
+<style>
+.tour-link { text-align: center; margin: 32px 20px 0; }
+.tour-btn { display: inline-block; background: #2c1810; color: white; padding: 14px 32px; border-radius: 30px; text-decoration: none; font-size: 15px; font-weight: 600; transition: background 0.2s; }
+.tour-btn:hover { background: #8B4513; }
 </style>
