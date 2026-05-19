@@ -19,6 +19,7 @@ export const IntentPanel: typeof import("../components/IntentPanel.vue")['defaul
 export const LoopIndicator: typeof import("../components/LoopIndicator.vue")['default']
 export const ResultPanel: typeof import("../components/ResultPanel.vue")['default']
 export const ToolSelector: typeof import("../components/ToolSelector.vue")['default']
+export const VoiceChatbot: typeof import("../components/VoiceChatbot.vue")['default']
 export const VoiceInput: typeof import("../components/VoiceInput.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -48,6 +49,7 @@ export const LazyIntentPanel: LazyComponent<typeof import("../components/IntentP
 export const LazyLoopIndicator: LazyComponent<typeof import("../components/LoopIndicator.vue")['default']>
 export const LazyResultPanel: LazyComponent<typeof import("../components/ResultPanel.vue")['default']>
 export const LazyToolSelector: LazyComponent<typeof import("../components/ToolSelector.vue")['default']>
+export const LazyVoiceChatbot: LazyComponent<typeof import("../components/VoiceChatbot.vue")['default']>
 export const LazyVoiceInput: LazyComponent<typeof import("../components/VoiceInput.vue")['default']>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>

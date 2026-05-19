@@ -2100,7 +2100,7 @@ const _cp2Znxw_G6gx6yxBddqQGaZoObux97UOV_XC6lkbsM = (function(nitro) {
 
 const rootDir = "/Users/beneditoferrao/Desktop/violin-workshop/violin-workshop/MITA-Luthier-Workshop-Interactive-Web-App";
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
+const appHead = {"meta":[{"charset":"utf-8"},{"name":"description","content":"Explore Cremona violin making tradition"},{"name":"viewport","content":"width=device-width, initial-scale=1"}],"link":[],"style":[],"script":[],"noscript":[],"title":"The Violin Workshop"};
 
 const appRootTag = "div";
 
