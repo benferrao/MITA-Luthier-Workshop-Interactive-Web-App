@@ -16,7 +16,7 @@
       <!-- Messages -->
       <div class="chatbot-messages" ref="messagesEl">
         <div v-if="messages.length === 0" class="chatbot-empty">
-          <p>👋 Tap the mic and ask me something!</p>
+          <p>👋 Ask me something!</p>
           <p class="examples">Try: "What is a bridge?" or "How is varnish made?"</p>
         </div>
         <div v-for="(msg, i) in messages" :key="i"
@@ -32,10 +32,23 @@
 
       <!-- Input area -->
       <div class="chatbot-input">
-        <button class="mic-btn" :class="{ listening }" @click="startListening">
-          {{ listening ? '🔴 Listening...' : '🎙️ Speak' }}
+        <!-- Text input -->
+        <div class="text-input-row">
+          <input
+            v-model="textInput"
+            type="text"
+            placeholder="Type a question..."
+            class="text-input"
+            @keydown.enter="handleTextSubmit"
+          />
+          <button class="send-btn" @click="handleTextSubmit">→</button>
+        </div>
+
+        <!-- Voice button -->
+        <button v-if="supported" class="mic-btn" :class="{ listening }" @click="startListening">
+          {{ listening ? '🔴 Listening...' : '🎙️ Or speak' }}
         </button>
-        <p v-if="!supported" class="unsupported">Use Chrome for voice support</p>
+        <p v-if="!supported" class="unsupported">Voice not supported — type your question above</p>
       </div>
     </div>
   </div>
@@ -51,6 +64,7 @@ const thinking = ref(false)
 const supported = ref(true)
 const messages = ref([])
 const messagesEl = ref(null)
+const textInput = ref('')
 let recognition = null
 let synth = null
 
@@ -80,12 +94,16 @@ function startListening() {
   listening.value = true
 }
 
+function handleTextSubmit() {
+  const text = textInput.value.trim()
+  if (!text) return
+  textInput.value = ''
+  handleUserMessage(text)
+}
+
 function handleUserMessage(text) {
-  // Add user message
   messages.value.push({ role: 'user', text })
   scrollToBottom()
-
-  // Think for a moment
   thinking.value = true
   setTimeout(() => {
     thinking.value = false
@@ -99,9 +117,7 @@ function handleUserMessage(text) {
 function findAnswer(question) {
   const lower = question.toLowerCase()
   const items = partsData.items
-  const intents = partsData.intents
 
-  // Try to find a matching tool by name or id
   const matchedItem = items.find(item =>
     lower.includes(item.name.toLowerCase()) ||
     lower.includes(item.id.toLowerCase()) ||
@@ -111,21 +127,15 @@ function findAnswer(question) {
   )
 
   if (matchedItem) {
-    // Check what kind of question it is
     if (lower.includes('sound') || lower.includes('tone') || lower.includes('acoustic')) {
       return `${matchedItem.name}: ${matchedItem.long} This affects the sound because every part of the violin contributes to how vibrations travel through the instrument.`
     }
     if (lower.includes('history') || lower.includes('origin') || lower.includes('old') || lower.includes('cremona')) {
       return `${matchedItem.name} has deep roots in Cremona's luthier tradition. ${matchedItem.long}`
     }
-    if (lower.includes('use') || lower.includes('what is') || lower.includes('what does') || lower.includes('how')) {
-      return `${matchedItem.name}: ${matchedItem.long}`
-    }
-    // Default — return the long description
     return `${matchedItem.name}: ${matchedItem.long}`
   }
 
-  // General violin questions
   if (lower.includes('violin') && (lower.includes('make') || lower.includes('build') || lower.includes('long'))) {
     return 'Making a violin takes between 200 and 250 hours of careful work. The luthier selects wood, carves the plates, bends the ribs, fits all the parts together, and applies multiple layers of varnish — each cured before the next is added.'
   }
@@ -146,7 +156,6 @@ function findAnswer(question) {
     return 'Antonio Stradivari was the greatest violin maker in history, working in Cremona in the 17th and 18th centuries. His instruments are still considered the finest ever made and are worth millions today. Many of his original molds are preserved at the Museo del Violino in Cremona.'
   }
 
-  // Fallback
   return "I am not sure about that one. Try asking about a specific part like the bridge, scroll, f-holes, or a tool like the scraper or finger plane."
 }
 
@@ -169,7 +178,6 @@ async function scrollToBottom() {
 </script>
 
 <style scoped>
-/* Floating button */
 .chatbot-wrapper {
   position: fixed;
   bottom: 24px;
@@ -178,29 +186,21 @@ async function scrollToBottom() {
 }
 
 .chatbot-fab {
-  width: 56px;
-  height: 56px;
+  width: 56px; height: 56px;
   border-radius: 50%;
   background: #8B4513;
-  color: white;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
+  color: white; border: none;
+  font-size: 22px; cursor: pointer;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
 }
-
 .chatbot-fab:hover { background: #6d3410; transform: scale(1.05); }
 .chatbot-fab.active { background: #2c1810; }
 
-/* Panel */
 .chatbot-panel {
   position: absolute;
-  bottom: 70px;
-  right: 0;
+  bottom: 70px; right: 0;
   width: 320px;
   background: white;
   border-radius: 20px;
@@ -209,49 +209,32 @@ async function scrollToBottom() {
   border: 1px solid #ede5d8;
   display: flex;
   flex-direction: column;
-  max-height: 480px;
+  max-height: 500px;
 }
 
-/* Header */
 .chatbot-header {
   background: linear-gradient(135deg, #2c1810, #8B4513);
-  padding: 16px;
-  color: white;
+  padding: 16px; color: white;
 }
-
 .chatbot-header h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 16px;
-  margin-bottom: 2px;
+  font-size: 16px; margin-bottom: 2px;
 }
+.chatbot-header p { font-size: 12px; opacity: 0.8; }
 
-.chatbot-header p {
-  font-size: 12px;
-  opacity: 0.8;
-}
-
-/* Messages */
 .chatbot-messages {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1; overflow-y: auto;
   padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-height: 200px;
+  display: flex; flex-direction: column;
+  gap: 10px; min-height: 180px;
 }
 
 .chatbot-empty {
-  text-align: center;
-  color: #999;
-  font-size: 13px;
-  margin: auto;
+  text-align: center; color: #999;
+  font-size: 13px; margin: auto;
 }
-
 .chatbot-empty .examples {
-  margin-top: 8px;
-  font-style: italic;
-  font-size: 12px;
+  margin-top: 8px; font-style: italic; font-size: 12px;
 }
 
 .message { display: flex; }
@@ -262,60 +245,70 @@ async function scrollToBottom() {
   max-width: 85%;
   padding: 10px 14px;
   border-radius: 16px;
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 13px; line-height: 1.5;
 }
-
 .message.user .bubble {
-  background: #8B4513;
-  color: white;
+  background: #8B4513; color: white;
   border-bottom-right-radius: 4px;
 }
-
 .message.system .bubble {
-  background: #f5f0eb;
-  color: #2c1810;
+  background: #f5f0eb; color: #2c1810;
   border-bottom-left-radius: 4px;
 }
 
-/* Thinking dots */
 .thinking span {
-  animation: blink 1.2s infinite;
-  font-size: 18px;
+  animation: blink 1.2s infinite; font-size: 18px;
 }
 .thinking span:nth-child(2) { animation-delay: 0.2s; }
 .thinking span:nth-child(3) { animation-delay: 0.4s; }
-
 @keyframes blink {
   0%, 80%, 100% { opacity: 0; }
   40% { opacity: 1; }
 }
 
-/* Input */
 .chatbot-input {
   padding: 12px 16px;
   border-top: 1px solid #f0e8e0;
-  text-align: center;
+  display: flex; flex-direction: column; gap: 8px;
 }
+
+.text-input-row {
+  display: flex; gap: 8px;
+}
+
+.text-input {
+  flex: 1; padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  font-size: 13px; outline: none;
+  transition: border-color 0.2s;
+}
+.text-input:focus { border-color: #8B4513; }
+
+.send-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #8B4513; color: white;
+  border: none; font-size: 16px;
+  cursor: pointer; transition: background 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.send-btn:hover { background: #6d3410; }
 
 .mic-btn {
-  cursor: pointer;
-  padding: 10px 24px;
+  cursor: pointer; padding: 8px 16px;
   border-radius: 24px;
   border: 2px solid #8B4513;
-  background: white;
-  color: #8B4513;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.2s;
-  width: 100%;
+  background: white; color: #8B4513;
+  font-size: 13px; font-weight: 600;
+  transition: all 0.2s; width: 100%;
 }
-
 .mic-btn:hover { background: #fdf5ee; }
 .mic-btn.listening { background: #ffebee; border-color: #e53935; color: #e53935; }
-.unsupported { font-size: 11px; color: #999; margin-top: 6px; }
+.unsupported { font-size: 11px; color: #999; text-align: center; }
 
 @media (max-width: 768px) {
   .chatbot-panel { width: 280px; }
+  .chatbot-wrapper { bottom: 16px; right: 16px; }
 }
 </style>
