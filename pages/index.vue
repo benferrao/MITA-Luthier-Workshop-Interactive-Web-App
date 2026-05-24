@@ -37,6 +37,18 @@
               @change="handleCameraCapture"
             />
           </div>
+          <!-- Loading -->
+          <div v-if="isDetecting" class="detection-loading">
+            <div class="spinner-small" /> Analyzing image...
+          </div>
+
+          <!-- Résultat -->
+          <div v-else-if="detectedObject?.success" class="detection-result">
+            🎻 This is a <strong>{{ detectedObject.text }}</strong>
+          </div>
+          <div v-else-if="detectedObject?.success === false" class="detection-error">
+            ⚠️ Object not recognized. Please try again with a clearer image.
+          </div>
           <button class="camera-btn" @click="triggerCamera">
             Take Photo
           </button>
@@ -108,41 +120,56 @@ const {
 const isMobile = ref(false)
 const capturedImage = ref(null)
 const cameraInput = ref(null)
+const isDetecting = ref(false)
+const detectedObject = ref(null)
 
 onMounted(() => {
   isMobile.value = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-    || window.innerWidth < 768
+    || window.innerWidth < 768 || true
 })
 
 function triggerCamera() {
   cameraInput.value?.click()
 }
 
-function handleCameraCapture(event) {
+async function handleCameraCapture(event) {
+  console.log('📸 Photo capturée !')
   const file = event.target.files[0]
-  if (!file) return
-
-  // Show preview
-  const reader = new FileReader()
-  reader.onload = (e) => {
-    capturedImage.value = e.target.result
+  if (!file) {
+    console.log('❌ Pas de fichier')
+    return
   }
+  console.log('✅ Fichier:', file.name, file.type, file.size)
+
+  const reader = new FileReader()
   reader.readAsDataURL(file)
+  reader.onload = async (e) => {
+  capturedImage.value = e.target.result
+  isDetecting.value = true
+  detectedObject.value = null
 
-  // Try to match by filename keywords
-  const filename = file.name.toLowerCase()
-  const match = items.find(item =>
-    filename.includes(item.id) ||
-    filename.includes(item.name.toLowerCase())
-  )
+  try {
+    const base64 = e.target.result.split(',')[1]
+    const response = await $fetch('/api/detect', {
+      method: 'POST',
+      body: { image: base64 }
+    })
 
-  if (match) {
-    // Found a match — run through grounding loop
-    setTimeout(() => sense(match.id), 800)
-  } else {
-    // No match — show fallback grid
-    errorMessage.value = "Could not identify the tool automatically. Please select it below."
-    capturedImage.value = null
+    const prediction = response.outputs?.[0]?.predictions?.predictions?.[0]
+    if (prediction) {
+      detectedObject.value = { success: true, text: `${prediction.class} (${Math.round(prediction.confidence * 100)}%)` }
+    } else {
+      detectedObject.value = { success: false }
+    }
+  } catch (error) {
+    detectedObject.value = { success: false }
+  } finally {
+    isDetecting.value = false
+  }
+}
+
+  reader.onerror = (e) => {
+    console.error('❌ Erreur lecture fichier:', e)
   }
 }
 
@@ -393,6 +420,48 @@ body {
   text-transform: uppercase;
   border-top: 1px solid #e0d5c8;
 }
+
+.detection-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  background: white;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #8B4513;
+}
+
+.spinner-small {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e8d5c0;
+  border-top-color: #8B4513;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+.detection-result {
+  padding: 14px 20px;
+  background: white;
+  border-radius: 12px;
+  border-left: 4px solid #8B4513;
+  font-size: 16px;
+  text-align: center;
+  color: #2c1810;
+}
+
+.detection-error {
+  padding: 14px 20px;
+  background: #fdf0ed;
+  border-radius: 12px;
+  border-left: 4px solid #c0392b;
+  font-size: 15px;
+  text-align: center;
+  color: #c0392b;
+}
+
 
 /* Mobile responsive */
 @media (max-width: 768px) {
