@@ -161,85 +161,79 @@ const tasks = [
   { key:'tour',   num:'03', icon:'🎻', title:'Guided Tour',    desc:'Walk through all 8 stages of making a Cremonese violin, with questions at every step.',   ready:true,  link:'/tour' },
 ]
 
-// ── 5 hotspots — worldPos matched to real violin anatomy ──
-// These positions are calibrated to the GLB model's local space
-// The violin stands vertically, head at +Y, body at -Y, front face at +Z
+// ── Hotspots — worldPos computed from 球体 nodes in 琴弦距离不变.glb
+// Formula: worldPos = (球体.translation - violinMeshCenter) * (5.5 / violinMeshMaxDim)
+// violinMeshCenter = [-0.3884, -0.0348, -0.8107], maxDim = 0.6504, scale = 8.456
 const hotspots = reactive([
   {
+    // 琴头涡旋 — Task 1 Point & Ask (camera identifies parts)
     key:'scroll',
     label:'Scroll',
-    // Top of the violin — the peghead/scroll area
-    worldPos: [0.05, 1.95, 0.18],
-    delay: 0,
-    x:0, y:0, visible:false,
-    // Data from violinParts.json
+    worldPos: [0.343, 2.132, 0.013],
+    delay: 0, x:0, y:0, visible:false,
     name: 'Scroll',
-    short: "The decorative spiral at the top — the maker's artistic signature.",
-    long: "The scroll is carved by hand using gouges and a Japanese restoration saw for the initial rough cut, followed by finer work with chisels. It serves no acoustic function but is the maker's signature — experts can identify a luthier just by the scroll.",
+    short: "The maker's artistic signature — carved entirely by hand.",
+    long: "The scroll is carved using gouges and a Japanese restoration saw. It serves no acoustic function but is the maker's personal signature — expert luthiers can identify who made a violin just by examining the scroll shape and the depth of its chamfer.",
     image: '/images/violin scroll.jpg',
     task: 'Task 1 · Point & Ask',
-    taskColor: '#8B4513',
-    link: '/?item=scroll',
+    taskColor: '#C8860A',
+    link: '/',
   },
   {
-    key:'fholes',
-    label:'F-holes',
-    // Upper bout, slightly left, on the face
-    worldPos: [-0.38, 0.18, 0.30],
-    delay: 0.5,
-    x:0, y:0, visible:false,
-    name: 'F-holes',
-    short: 'Sound holes that let air move in and out of the body.',
-    long: "The f-holes are the two f-shaped openings cut into the belly of the violin. They allow air to move freely in and out of the body, essential for projection and tonal richness. They also allow clamps to be inserted during restoration to reglue open seams.",
-    image: '/images/zoomed violin.jpg',
-    task: 'Task 1 · Point & Ask',
-    taskColor: '#8B4513',
-    link: '/?item=f-holes',
-  },
-  {
+    // 这个位置实际是Bridge → 内容改为Bridge
     key:'bridge',
     label:'Bridge',
-    // Center of body, on the face, between the f-holes
-    worldPos: [0.12, -0.08, 0.33],
-    delay: 1.0,
-    x:0, y:0, visible:false,
+    worldPos: [0.518, -1.291, -0.053],
+    delay: 0.5, x:0, y:0, visible:false,
     name: 'Bridge',
-    short: 'Supports the strings and transmits vibrations to the body.',
-    long: "The bridge is bought as a rough-cut maple blank and fitted individually to each instrument. The luthier carves the feet to match the exact arch of the top plate, sets the string height, and refines the curves — a process that takes 1 to 2 hours per bridge.",
+    short: 'Transmits string vibration to the body — never glued, held only by string tension.',
+    long: "Cut from aged Bosnian maple. The luthier carves the feet to perfectly match the arch of the top plate — a process that takes 1 to 2 hours per bridge. Its position is adjusted by ear, sliding it millimetre by millimetre until the tone locks in.",
     image: '/images/bridge.jpg',
-    task: 'Task 1 · Point & Ask',
-    taskColor: '#8B4513',
-    link: '/?item=bridge',
+    task: 'Task 2 · Identify Tools',
+    taskColor: '#6aaee0',
+    link: '/',
   },
   {
+    // 这个位置实际是Ribs → 内容改为Ribs
     key:'ribs',
     label:'Ribs',
-    // Side of the body — X offset to the right edge
-    worldPos: [0.72, -0.55, 0.05],
-    delay: 1.5,
-    x:0, y:0, visible:false,
+    worldPos: [-0.034, -0.302, 0.824],
+    delay: 1.0, x:0, y:0, visible:false,
     name: 'Ribs',
-    short: 'Thin maple strips bent to form the sides of the body.',
-    long: "The ribs are thin strips of maple bent into shape using a bending iron — an electrically heated metal cylinder reaching up to 180°C. Each rib is dampened first, then carefully bent freehand. The luthier adjusts constantly by feel, watching for any sign of scorching.",
+    short: 'Thin maple sides bent by heat — only 1.2 mm thick.',
+    long: "The ribs are thin strips of figured maple bent over a bending iron reaching up to 180°C. Each rib is dampened first, then carefully bent freehand. At only 1.2–1.4 mm thick, they are thin enough to vibrate acoustically — the depth of the ribs directly controls the warmth of the finished instrument.",
     image: '/images/ribs 1.jpg',
-    task: 'Task 1 · Point & Ask',
-    taskColor: '#8B4513',
-    link: '/?item=ribs',
+    task: 'Task 3 · Guided Tour',
+    taskColor: '#6ed98a',
+    link: '/tour',
   },
   {
-    key:'violin-back',
-    label:'Violin Back',
-    // Back face — Z is negative (behind the model)
-    worldPos: [0, -0.6, -0.28],
-    delay: 2.0,
-    x:0, y:0, visible:false,
-    name: 'Violin Back',
-    short: 'The back plate, carved from figured maple.',
-    long: "The back plate is typically carved from figured maple sourced from Romania and the Balkans. The luthier carves it to a precise arching profile, graduating the thickness from about 4mm at the centre to under 3mm at the edges. The figure in the wood — 'flames' — is purely aesthetic.",
+    // 这个位置实际是Lower Bout → 内容改为Lower Bout
+    key:'lower-bout',
+    label:'Lower Bout',
+    worldPos: [-0.447, -1.00, -0.303],
+    delay: 1.5, x:0, y:0, visible:false,
+    name: 'Lower Bout',
+    short: 'The widest section of the body — the acoustic heart of the violin.',
+    long: "The lower bout provides the structural mass and resonance for the lower register. Its curvature is shaped entirely by eye — no fixed template — giving each Cremonese violin a unique silhouette. The wood here is carved to just 2.5–3.5 mm thick.",
     image: '/images/violin back.jpg',
-    task: 'Task 1 · Point & Ask',
-    taskColor: '#8B4513',
-    link: '/?item=violin-back',
+    task: 'Task 3 · Guided Tour',
+    taskColor: '#6ed98a',
+    link: '/tour',
+  },
+  {
+    // 这个位置实际是F-holes → 内容改为F-holes
+    key:'fholes',
+    label:'F-holes',
+    worldPos: [0.338, -1.330, 0.345],
+    delay: 2.0, x:0, y:0, visible:false,
+    name: 'F-holes',
+    short: 'Two asymmetric openings that project sound outward.',
+    long: "Cut with a knife after the top plate is graduated. Their precise position affects tone projection more than almost any other single decision. The inner notches of the f-holes mark exactly where the bridge feet must sit.",
+    image: '/images/zoomed violin.jpg',
+    task: 'Task 2 · Identify Tools',
+    taskColor: '#6aaee0',
+    link: '/',
   },
 ])
 
@@ -264,7 +258,7 @@ function goTo(path) {
   navigateTo(path)
 }
 
-// Gentle pluck sound
+// Gentle violin pluck sound
 function playSound() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)()
@@ -308,7 +302,6 @@ function initThree() {
 
   scene = new T.Scene()
 
-  // Camera
   cam = new T.PerspectiveCamera(36, W/H, 0.1, 100)
   cam.position.set(0, 0.2, 6.8)
 
@@ -326,17 +319,33 @@ function initThree() {
   violinGroup = new T.Group()
   scene.add(violinGroup)
 
-  // Load GLB
+  // Load new GLB
   const s = document.createElement('script')
   s.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js'
   s.onload = () => {
     new T.GLTFLoader().load('/violin.glb', gltf => {
       const model = gltf.scene
-      const box = new T.Box3().setFromObject(model)
-      const sz  = box.getSize(new T.Vector3())
+      // Hide marker spheres and bow
+      model.traverse(ch => {
+        if (ch.name && (ch.name.startsWith('球体') || ch.name === '融球')) {
+          ch.visible = false
+        }
+        // Hide bow so it doesn't affect bounding box or display
+        if (ch.name && ch.name.includes('bow')) {
+          ch.visible = false
+        }
+      })
+      // Compute bounding box from VIOLIN ONLY (not bow) for correct centering
+      const violinBox = new T.Box3()
+      model.traverse(ch => {
+        if (ch.isMesh && ch.visible && ch.name && !ch.name.includes('bow')) {
+          violinBox.expandByObject(ch)
+        }
+      })
+      const sz  = violinBox.getSize(new T.Vector3())
       const sc  = 5.5 / Math.max(sz.x, sz.y, sz.z)
       model.scale.setScalar(sc)
-      model.position.sub(box.getCenter(new T.Vector3()).multiplyScalar(sc))
+      model.position.sub(violinBox.getCenter(new T.Vector3()).multiplyScalar(sc))
       model.traverse(ch => {
         if (ch.isMesh) {
           ch.castShadow = true; ch.receiveShadow = true
@@ -353,7 +362,7 @@ function initThree() {
   s.onerror = () => buildFallback(T)
   document.head.appendChild(s)
 
-  // Hotspot spheres
+  // Hotspot spheres + rings (same as original)
   const hGeo = new T.SphereGeometry(0.12, 12, 12)
   const rGeo = new T.TorusGeometry(0.13, 0.015, 8, 32)
   hotspots.forEach((h, i) => {
@@ -371,7 +380,7 @@ function initThree() {
     hSpheres.push({ sp, ring, key:h.key, index:i })
   })
 
-  // Raycaster for click
+  // Raycaster
   const ray = new T.Raycaster()
   const m2  = new T.Vector2()
   function ndcFromEvent(e) {
@@ -379,21 +388,6 @@ function initThree() {
     m2.x =  (e.clientX - r.left) / r.width  * 2 - 1
     m2.y = -((e.clientY - r.top) / r.height) * 2 + 1
   }
-  // DEBUG: double-click anywhere on violin to get local coordinates
-  canvas.addEventListener('dblclick', e => {
-    ndcFromEvent(e)
-    ray.setFromCamera(m2, cam)
-    const allMeshes = []
-    violinGroup.traverse(c => { if (c.isMesh) allMeshes.push(c) })
-    const hits = ray.intersectObjects(allMeshes, false)
-    if (hits.length) {
-      const worldPt = hits[0].point.clone()
-      const localPt = violinGroup.worldToLocal(worldPt)
-      const msg = `[${localPt.x.toFixed(3)}, ${localPt.y.toFixed(3)}, ${localPt.z.toFixed(3)}]`
-      console.log('HOTSPOT COORDS:', msg)
-      alert('Coords (copy these):\n' + msg)
-    }
-  })
 
   canvas.addEventListener('click', e => {
     ndcFromEvent(e)
@@ -405,34 +399,23 @@ function initThree() {
     }
   })
 
-  // ── DRAG — LEFT/RIGHT ONLY (Y axis) ──
+  // Drag — Y axis only
   const el = container
-
-  function onStart(cx) {
-    dragging = true; lastX = cx; velY = 0; autoTimer = 0
-    el.style.cursor = 'grabbing'
-  }
+  function onStart(cx) { dragging=true; lastX=cx; velY=0; autoTimer=0; el.style.cursor='grabbing' }
   function onMove(cx) {
     if (!dragging) return
     const dx = cx - lastX
-    velY = dx * 0.013
-    tRotY += dx * 0.013
-    lastX = cx
+    velY = dx * 0.013; tRotY += dx * 0.013; lastX = cx
   }
-  function onEnd() {
-    dragging = false; autoTimer = 0
-    el.style.cursor = 'grab'
-  }
+  function onEnd() { dragging=false; autoTimer=0; el.style.cursor='grab' }
 
   el.addEventListener('mousedown', e => { e.preventDefault(); onStart(e.clientX) })
   window.addEventListener('mousemove', e => onMove(e.clientX))
-  window.addEventListener('mouseup',   onEnd)
-
+  window.addEventListener('mouseup', onEnd)
   el.addEventListener('touchstart', e => { e.preventDefault(); onStart(e.touches[0].clientX) }, {passive:false})
   el.addEventListener('touchmove',  e => { e.preventDefault(); onMove(e.touches[0].clientX)  }, {passive:false})
-  el.addEventListener('touchend',   onEnd)
+  el.addEventListener('touchend', onEnd)
 
-  // Hover cursor
   canvas.addEventListener('mousemove', e => {
     if (dragging) return
     ndcFromEvent(e)
@@ -441,11 +424,9 @@ function initThree() {
     el.style.cursor = hits.length ? 'pointer' : 'grab'
   })
 
-  // Resize
   const onResize = () => {
-    const W2 = container.clientWidth, H2 = container.clientHeight
-    cam.aspect = W2/H2; cam.updateProjectionMatrix()
-    renderer.setSize(W2, H2)
+    const W2=container.clientWidth, H2=container.clientHeight
+    cam.aspect=W2/H2; cam.updateProjectionMatrix(); renderer.setSize(W2,H2)
   }
   window.addEventListener('resize', onResize)
 
@@ -455,38 +436,29 @@ function initThree() {
     const t  = clock.getElapsedTime()
     const dt = clock.getDelta()
 
-    // Inertia + auto-rotate
     if (!dragging) {
-      autoTimer += dt
-      velY *= 0.94
-      tRotY += velY
-      if (autoTimer > 3) tRotY += 0.003   // slow auto spin
+      autoTimer += dt; velY *= 0.94; tRotY += velY
+      if (autoTimer > 3) tRotY += 0.003
     }
 
-    // Smooth damping — Y ONLY
     rotY += (tRotY - rotY) * 0.1
     violinGroup.rotation.y = rotY
-    // NO position.y change → no size oscillation
     violinGroup.position.y = 0
 
-    // Pulse hotspot rings only (no sphere scale change → dots stay same size)
+    // Pulse rings
     hSpheres.forEach((h, i) => {
       h.ring.scale.setScalar(1 + 0.5 * Math.abs(Math.sin(t * 1.8 + i * 1.4)))
       h.ring.material.opacity = 0.1 + 0.5 * Math.abs(Math.sin(t * 1.8 + i * 1.4))
       h.ring.rotation.z = t * 0.6
     })
 
-    // Project each hotspot world pos → screen pos
+    // Project hotspot world pos → screen
     const rect = container.getBoundingClientRect()
     hSpheres.forEach((h, i) => {
-      // Transform the fixed local-space position by the current rotation
       const wp = new T.Vector3(...hotspots[i].worldPos)
-      wp.applyEuler(new T.Euler(0, rotY, 0, 'YXZ'))  // only Y rotation
-
+      wp.applyEuler(new T.Euler(0, rotY, 0, 'YXZ'))
       const proj = wp.clone().project(cam)
-      // Behind camera check: proj.z > 1 means behind
       const visible = proj.z < 0.999 && proj.z > -1
-
       hotspots[i].x       = ((proj.x + 1) / 2) * rect.width
       hotspots[i].y       = ((-proj.y + 1) / 2) * rect.height
       hotspots[i].visible = visible
@@ -498,12 +470,10 @@ function initThree() {
 }
 
 function buildFallback(T) {
-  // Simple violin geometry if GLB fails
   const bm = new T.MeshStandardMaterial({ color:0x8B4010, roughness:0.22, metalness:0.06 })
   const mm = new T.MeshStandardMaterial({ color:0x7A3E22, roughness:0.28 })
   const em = new T.MeshStandardMaterial({ color:0x0a0503, roughness:0.5 })
   const gm = new T.MeshStandardMaterial({ color:0xC8860A, roughness:0.18, metalness:0.65 })
-
   const shape = new T.Shape()
   shape.moveTo(0,1.3); shape.bezierCurveTo(1.15,1.3,1.55,0.9,1.5,0.28)
   shape.bezierCurveTo(1.42,-0.12,1.08,-0.22,0.96,-0.32)
@@ -515,7 +485,6 @@ function buildFallback(T) {
   shape.bezierCurveTo(-0.84,-0.72,-1.08,-0.58,-0.96,-0.32)
   shape.bezierCurveTo(-1.08,-0.22,-1.42,-0.12,-1.5,0.28)
   shape.bezierCurveTo(-1.55,0.9,-1.15,1.3,0,1.3)
-
   const geo = new T.ExtrudeGeometry(shape, {depth:0.26,bevelEnabled:true,bevelThickness:0.07,bevelSize:0.05,bevelSegments:5})
   geo.center()
   const body = new T.Mesh(geo, bm); body.position.y=-0.8; body.castShadow=true; violinGroup.add(body)
@@ -555,7 +524,6 @@ onBeforeUnmount(() => {
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 
-/* HERO */
 .hero{
   height:100vh;
   background:linear-gradient(160deg,#2c1810 0%,#8B4513 55%,#c8860a 100%);
@@ -564,8 +532,6 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
   grid-template-rows:1fr auto;
   overflow:hidden;
 }
-
-/* Left */
 .hero-text{
   grid-column:1;grid-row:1;
   display:flex;flex-direction:column;justify-content:center;
@@ -578,7 +544,6 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
 .drag-hint{font-size:11px;color:rgba(245,239,228,.3);letter-spacing:.04em}
 
-/* Right: violin area */
 .violin-container{
   grid-column:2;grid-row:1;
   position:relative;cursor:grab;user-select:none;
@@ -587,7 +552,6 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 .violin-container:active{cursor:grabbing}
 .three-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 
-/* Hotspots */
 .hotspot{
   position:absolute;width:26px;height:26px;
   transform:translate(-50%,-50%);
@@ -620,14 +584,12 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 }
 @keyframes hsp{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(2.6);opacity:0}}
 
-/* Loop bar */
 .loop-bar{grid-column:1/-1;grid-row:2;display:flex;justify-content:center;gap:8px;padding:14px;background:rgba(0,0,0,.28)}
 .ls{display:flex;align-items:center;gap:6px;padding:7px 18px;border-radius:20px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.38);font-size:12px;font-weight:500;transition:all .35s}
 .ls.active{background:white;color:#2c1810}
 .ls.done{background:rgba(200,134,10,.3);color:#f5d090}
 .ls-dot{width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:2px}
 
-/* Buttons */
 .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:white;color:#2c1810;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;border:none;border-radius:30px;cursor:pointer;text-decoration:none;transition:all .22s;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .btn-primary:hover{background:#f5ede0;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .btn-primary.large{padding:15px 36px;font-size:15px}
@@ -635,14 +597,12 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 .btn-secondary:hover{background:rgba(255,255,255,.22);border-color:white;transform:translateY(-2px)}
 .btn-secondary.large{padding:15px 36px;font-size:15px}
 
-/* Marquee */
 .marquee-wrap{background:#8B4513;padding:11px 0;overflow:hidden}
 .marquee{display:flex;white-space:nowrap;animation:mq 22s linear infinite}
 .mi{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);padding:0 22px;font-weight:400}
 .ms{color:rgba(255,255,255,.25);font-size:7px;vertical-align:middle}
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* Tasks */
 .tasks{background:#f5f0eb;padding:70px 40px}
 .sec-hd{text-align:center;max-width:560px;margin:0 auto 48px}
 .sec-hd h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#2c1810;margin-bottom:10px}
@@ -661,7 +621,6 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 .bsoon{background:#f5ede0;color:#8B4513}
 .tarr{position:absolute;bottom:18px;right:18px;font-size:18px;color:#8B4513;opacity:0;transform:translateX(-8px);transition:all .22s}
 
-/* About */
 .about{background:white;padding:70px 40px;border-top:1px solid #ede5d8}
 .about-in{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8B4513;margin-bottom:10px;font-weight:500}
@@ -677,7 +636,6 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 .atags{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
 .atag{background:rgba(255,255,255,.11);color:rgba(255,255,255,.7);font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:4px 13px;border-radius:20px;border:1px solid rgba(255,255,255,.14)}
 
-/* CTA */
 .cta{background:linear-gradient(135deg,#2c1810 0%,#8B4513 60%,#c8860a 100%);padding:80px 40px;text-align:center}
 .cta h2{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,50px);font-weight:700;color:white;margin-bottom:14px;text-shadow:0 2px 10px rgba(0,0,0,.3)}
 .cta h2 em{font-style:italic;color:#f5d090;font-weight:400}
@@ -685,7 +643,6 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .home-footer{background:#2c1810;padding:22px;text-align:center;color:rgba(255,255,255,.28);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
 
-/* SIDE PANEL */
 .panel-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:290;opacity:0;pointer-events:none;transition:opacity .3s}
 .panel-backdrop.show{opacity:1;pointer-events:auto}
 .side-panel{
@@ -700,31 +657,21 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 .side-panel.open{transform:translateX(0)}
 .pcls{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:#555;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .pcls:hover{background:white;color:#2c1810}
-
-/* Panel image */
 .panel-img-wrap{position:relative;width:100%;height:240px;flex-shrink:0;background:#2c1810;overflow:hidden}
 .panel-img{width:100%;height:100%;object-fit:cover;display:block}
 .panel-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(44,24,16,.7))}
 .panel-img-label{
   position:absolute;bottom:14px;left:18px;
   font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(245,239,228,.8);
-  background:rgba(44,24,16,.5);
-  padding:4px 10px;border-radius:12px;
-  border:1px solid rgba(245,239,228,.2);
+  color:rgba(245,239,228,.8);background:rgba(44,24,16,.5);
+  padding:4px 10px;border-radius:12px;border:1px solid rgba(245,239,228,.2);
 }
-
 .pbody{padding:24px}
 .ptitle{font-family:'Playfair Display',serif;font-size:28px;color:#2c1810;margin-bottom:8px;line-height:1.1}
 .pshort{font-size:14px;color:#888;margin-bottom:16px;line-height:1.6}
 .phr{border:none;height:1px;background:#f0e8e0;margin-bottom:16px}
 .plong{font-size:14px;color:#555;line-height:1.8;margin-bottom:24px}
-.p-explore-btn{
-  display:block;width:100%;padding:14px;
-  background:#8B4513;color:white;border:none;border-radius:30px;
-  font-family:'Inter',sans-serif;font-size:14px;font-weight:600;
-  cursor:pointer;transition:all .22s;margin-bottom:10px;text-align:center;
-}
+.p-explore-btn{display:block;width:100%;padding:14px;background:#8B4513;color:white;border:none;border-radius:30px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .22s;margin-bottom:10px;text-align:center;}
 .p-explore-btn:hover{background:#6d3410;transform:translateY(-2px)}
 .pbtn-gh{width:100%;padding:11px;background:transparent;color:#aaa;border:1px solid #ddd;border-radius:30px;cursor:pointer;font-size:13px;transition:all .2s;font-family:'Inter',sans-serif}
 .pbtn-gh:hover{background:#f5f0eb;color:#2c1810}
