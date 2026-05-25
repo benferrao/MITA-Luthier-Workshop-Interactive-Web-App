@@ -20,7 +20,7 @@
         "../node_modules/unplugin-vue-router/client"
       ],
       "@nuxt/schema": [
-        "../node_modules/@nuxt/schema"
+        "../node_modules/nuxt/node_modules/@nuxt/schema"
       ],
       "defu": [
         "../node_modules/defu"
@@ -141,7 +141,7 @@
     "noUncheckedIndexedAccess": false,
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
-    "module": "preserve",
+    "module": "ESNext",
     "noEmit": true,
     "lib": [
       "ESNext",
@@ -168,7 +168,6 @@
   "exclude": [
     "../dist",
     "../.data",
-    "../../../node_modules",
     "../node_modules/runtime/server",
     "../node_modules/dist/runtime/server",
     "dev"
