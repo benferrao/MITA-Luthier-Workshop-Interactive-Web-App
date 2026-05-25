@@ -151,22 +151,25 @@ async function handleCameraCapture(event) {
   try {
     const base64 = e.target.result.split(',')[1]
     const response = await $fetch('/api/detect', {
-      method: 'POST',
-      body: { image: base64 }
-    })
+    method: 'POST',
+    body: { image: base64 }
+  })
 
-    const prediction = response.outputs?.[0]?.predictions?.predictions?.[0]
-    if (prediction) {
-      detectedObject.value = { success: true, text: `${prediction.class} (${Math.round(prediction.confidence * 100)}%)` }
-    } else {
-      detectedObject.value = { success: false }
-    }
-  } catch (error) {
+  const top = response.top
+  const confidence = response.confidence
+  console.log("Le top c'est : ", confidence);
+
+  if (top) {
+    detectedObject.value = { success: true, text: `${top} (${Math.round(confidence * 100)}%)` }
+  } else {
     detectedObject.value = { success: false }
-  } finally {
-    isDetecting.value = false
   }
-}
+    } catch (error) {
+      detectedObject.value = { success: false }
+    } finally {
+      isDetecting.value = false
+    }
+  }
 
   reader.onerror = (e) => {
     console.error('❌ Erreur lecture fichier:', e)
