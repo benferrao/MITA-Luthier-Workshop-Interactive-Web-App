@@ -686,3 +686,4 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
   .side-panel{width:100%}
 }
 </style>
+
