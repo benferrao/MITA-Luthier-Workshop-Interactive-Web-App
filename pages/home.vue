@@ -156,7 +156,7 @@
   const marquee = ['Bridge','F-holes','Scroll','Ribs','Violin Back','Finger Plane','Scraper','Sound Post','Varnish','UV Cabin','Tuning Peg']
   
   const tasks = [
-    { key:'camera', num:'01', icon:'📷', title:'Point & Ask',    desc:'Aim your camera at any violin part. The system identifies it and answers your questions.', ready:false, link:'/' },
+    { key:'camera', num:'01', icon:'📷', title:'Point & Ask',    desc:'Aim your camera at any violin part. The system identifies it and answers your questions.', ready:true, link:'/' },
     { key:'tools',  num:'02', icon:'🔍', title:'Identify Tools', desc:'Tap any tool on the workbench. The grounding loop resolves ambiguity and reveals its story.', ready:true,  link:'/' },
     { key:'tour',   num:'03', icon:'🎻', title:'Guided Tour',    desc:'Walk through all 8 stages of making a Cremonese violin, with questions at every step.',   ready:true,  link:'/tour' },
   ]
@@ -686,3 +686,4 @@
     .side-panel{width:100%}
   }
   </style>
+  
