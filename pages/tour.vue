@@ -21,7 +21,6 @@
 
     <!-- Loop Indicator -->
     <div class="loop-wrapper">
-      <LoopIndicator :current-state="loopState" />
     </div>
 
     <!-- Main card -->
