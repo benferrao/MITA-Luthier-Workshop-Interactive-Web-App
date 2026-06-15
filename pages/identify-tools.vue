@@ -4,53 +4,21 @@
     <header class="hero">
       <div class="hero-overlay">
         <h1>The Violin Workshop</h1>
-        <p>Discover Cremona's ancient luthier tradition</p>
+        <p>Tap a tool on the workbench to identify it</p>
       </div>
     </header>
 
     <!-- Loop Indicator -->
     <div class="loop-wrapper">
+      <LoopIndicator :current-state="currentState" />
     </div>
 
     <p v-if="stateLabel" class="state-label">{{ stateLabel }}</p>
     <p v-if="errorMessage" class="error-msg">{{ errorMessage }}</p>
 
-    <!-- IDLE state -->
+    <!-- IDLE state: tool grid -->
     <div v-if="currentState === 'IDLE'">
-      <!-- MOBILE: Camera interface -->
-      <div v-if="isMobile" class="mobile-camera-ui">
-        <div class="camera-section">
-          <div class="camera-viewfinder" @click="triggerCamera">
-            <img v-if="capturedImage" :src="capturedImage" class="captured-preview" />
-            <div v-else class="camera-placeholder">
-              <div class="camera-icon">📷</div>
-              <p>Tap to open camera</p>
-              <small>Point at a violin tool to identify it</small>
-            </div>
-            <input
-              ref="cameraInput"
-              type="file"
-              accept="image/*"
-              capture="environment"
-              class="hidden-input"
-              @change="handleCameraCapture"
-            />
-          </div>
-          <button class="camera-btn" @click="triggerCamera">
-            Take Photo
-          </button>
-        </div>
-
-        <div class="divider">
-          <span>or browse tools</span>
-        </div>
-
-        <!-- Fallback tap grid on mobile -->
-        <ToolSelector :items="items" @select="sense" />
-      </div>
-
-      <!-- DESKTOP: Normal grid -->
-      <ToolSelector v-else :items="items" @select="sense" />
+      <ToolSelector :items="items" @select="sense" />
     </div>
 
     <!-- SENSE / INTERPRET: loading -->
@@ -83,14 +51,15 @@
       </div>
     </aside>
 
-    <div class="tour-link"><a href="/tour" class="tour-btn">🎻 Take the Guided Tour</a></div><footer class="app-footer">
+    <div class="tour-link"><a href="/tour" class="tour-btn">🎻 Take the Guided Tour</a></div>
+
+    <footer class="app-footer">
       <p>MITA</p>
     </footer>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import { useGroundingLoop } from '~/composables/useGroundingLoop'
 
 const {
@@ -102,48 +71,6 @@ const {
   sense, selectCandidate,
   selectIntent, repair, reset
 } = useGroundingLoop()
-
-// Mobile detection
-const isMobile = ref(false)
-const capturedImage = ref(null)
-const cameraInput = ref(null)
-
-onMounted(() => {
-  isMobile.value = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-    || window.innerWidth < 768
-})
-
-function triggerCamera() {
-  cameraInput.value?.click()
-}
-
-function handleCameraCapture(event) {
-  const file = event.target.files[0]
-  if (!file) return
-
-  // Show preview
-  const reader = new FileReader()
-  reader.onload = (e) => {
-    capturedImage.value = e.target.result
-  }
-  reader.readAsDataURL(file)
-
-  // Try to match by filename keywords
-  const filename = file.name.toLowerCase()
-  const match = items.find(item =>
-    filename.includes(item.id) ||
-    filename.includes(item.name.toLowerCase())
-  )
-
-  if (match) {
-    // Found a match — run through grounding loop
-    setTimeout(() => sense(match.id), 800)
-  } else {
-    // No match — show fallback grid
-    errorMessage.value = "Could not identify the tool automatically. Please select it below."
-    capturedImage.value = null
-  }
-}
 
 function handleVoice(text) {
   const lower = text.toLowerCase()
@@ -251,105 +178,6 @@ body {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Mobile camera UI */
-.mobile-camera-ui {
-  padding: 24px 20px;
-}
-
-.camera-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.camera-viewfinder {
-  width: 100%;
-  max-width: 340px;
-  height: 260px;
-  border-radius: 20px;
-  border: 3px dashed #8B4513;
-  background: #2c1810;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  overflow: hidden;
-  position: relative;
-  transition: border-color 0.2s;
-}
-
-.camera-viewfinder:hover {
-  border-color: #c8860a;
-}
-
-.camera-placeholder {
-  text-align: center;
-  color: white;
-  padding: 20px;
-}
-
-.camera-icon {
-  font-size: 48px;
-  margin-bottom: 12px;
-}
-
-.camera-placeholder p {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 6px;
-}
-
-.camera-placeholder small {
-  font-size: 12px;
-  opacity: 0.7;
-}
-
-.captured-preview {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hidden-input {
-  display: none;
-}
-
-.camera-btn {
-  background: #8B4513;
-  color: white;
-  border: none;
-  padding: 14px 40px;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-  transition: background 0.2s;
-}
-
-.camera-btn:hover {
-  background: #6d3410;
-}
-
-.divider {
-  text-align: center;
-  color: #999;
-  font-size: 13px;
-  margin: 8px 0 4px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: #ddd;
-}
-
 /* History */
 .history {
   margin: 40px 20px 0;
@@ -381,6 +209,11 @@ body {
   margin-top: 2px;
 }
 
+/* Tour link */
+.tour-link { text-align: center; margin: 32px 20px 0; }
+.tour-btn { display: inline-block; background: #2c1810; color: white; padding: 14px 32px; border-radius: 30px; text-decoration: none; font-size: 15px; font-weight: 600; transition: background 0.2s; }
+.tour-btn:hover { background: #8B4513; }
+
 /* Footer */
 .app-footer {
   text-align: center;
@@ -400,9 +233,4 @@ body {
   .hero-overlay p { font-size: 13px; }
   .app-container { padding-bottom: 60px; }
 }
-</style>
-<style>
-.tour-link { text-align: center; margin: 32px 20px 0; }
-.tour-btn { display: inline-block; background: #2c1810; color: white; padding: 14px 32px; border-radius: 30px; text-decoration: none; font-size: 15px; font-weight: 600; transition: background 0.2s; }
-.tour-btn:hover { background: #8B4513; }
 </style>

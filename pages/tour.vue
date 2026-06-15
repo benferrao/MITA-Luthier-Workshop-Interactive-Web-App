@@ -21,6 +21,7 @@
 
     <!-- Loop Indicator -->
     <div class="loop-wrapper">
+      <LoopIndicator :current-state="loopState" />
     </div>
 
     <!-- Main card -->
@@ -88,7 +89,7 @@
         <p>You have just walked through the full process of making a Cremonese violin — from raw wood to finished instrument.</p>
         <div class="finished-actions">
           <button class="nav-btn primary" @click="restart">Start again</button>
-          <NuxtLink to="/" class="nav-btn secondary">Explore tools</NuxtLink>
+          <a href="/identify-tools" class="nav-btn secondary">Explore tools</a>
         </div>
       </div>
     </div>

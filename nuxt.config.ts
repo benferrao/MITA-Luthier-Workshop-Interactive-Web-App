@@ -7,6 +7,13 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'Explore Cremona violin making tradition' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ],
+      // Add this script array right here:
+      script: [
+        {
+          src: 'https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js',
+          type: 'module'
+        }
       ]
     }
   }

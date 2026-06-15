@@ -4,53 +4,48 @@
     <header class="hero">
       <div class="hero-overlay">
         <h1>The Violin Workshop</h1>
-        <p>Discover Cremona's ancient luthier tradition</p>
+        <p>Point your camera at a tool to identify it</p>
       </div>
     </header>
 
     <!-- Loop Indicator -->
     <div class="loop-wrapper">
+      <LoopIndicator :current-state="currentState" />
     </div>
 
     <p v-if="stateLabel" class="state-label">{{ stateLabel }}</p>
     <p v-if="errorMessage" class="error-msg">{{ errorMessage }}</p>
 
-    <!-- IDLE state -->
-    <div v-if="currentState === 'IDLE'">
-      <!-- MOBILE: Camera interface -->
-      <div v-if="isMobile" class="mobile-camera-ui">
-        <div class="camera-section">
-          <div class="camera-viewfinder" @click="triggerCamera">
-            <img v-if="capturedImage" :src="capturedImage" class="captured-preview" />
-            <div v-else class="camera-placeholder">
-              <div class="camera-icon">📷</div>
-              <p>Tap to open camera</p>
-              <small>Point at a violin tool to identify it</small>
-            </div>
-            <input
-              ref="cameraInput"
-              type="file"
-              accept="image/*"
-              capture="environment"
-              class="hidden-input"
-              @change="handleCameraCapture"
-            />
+    <!-- IDLE state: camera interface -->
+    <div v-if="currentState === 'IDLE'" class="mobile-camera-ui">
+      <div class="camera-section">
+        <div class="camera-viewfinder" @click="triggerCamera">
+          <img v-if="capturedImage" :src="capturedImage" class="captured-preview" />
+          <div v-else class="camera-placeholder">
+            <div class="camera-icon">📷</div>
+            <p>Tap to open camera</p>
+            <small>Point at a violin tool to identify it</small>
           </div>
-          <button class="camera-btn" @click="triggerCamera">
-            Take Photo
-          </button>
+          <input
+            ref="cameraInput"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            class="hidden-input"
+            @change="handleCameraCapture"
+          />
         </div>
-
-        <div class="divider">
-          <span>or browse tools</span>
-        </div>
-
-        <!-- Fallback tap grid on mobile -->
-        <ToolSelector :items="items" @select="sense" />
+        <button class="camera-btn" @click="triggerCamera">
+          Take Photo
+        </button>
       </div>
 
-      <!-- DESKTOP: Normal grid -->
-      <ToolSelector v-else :items="items" @select="sense" />
+      <div class="divider">
+        <span>or browse tools</span>
+      </div>
+
+      <!-- Fallback tap grid -->
+      <ToolSelector :items="items" @select="sense" />
     </div>
 
     <!-- SENSE / INTERPRET: loading -->
@@ -83,14 +78,16 @@
       </div>
     </aside>
 
-    <div class="tour-link"><a href="/tour" class="tour-btn">🎻 Take the Guided Tour</a></div><footer class="app-footer">
+    <div class="tour-link"><a href="/tour" class="tour-btn">🎻 Take the Guided Tour</a></div>
+
+    <footer class="app-footer">
       <p>MITA</p>
     </footer>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useGroundingLoop } from '~/composables/useGroundingLoop'
 
 const {
@@ -103,15 +100,8 @@ const {
   selectIntent, repair, reset
 } = useGroundingLoop()
 
-// Mobile detection
-const isMobile = ref(false)
 const capturedImage = ref(null)
 const cameraInput = ref(null)
-
-onMounted(() => {
-  isMobile.value = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-    || window.innerWidth < 768
-})
 
 function triggerCamera() {
   cameraInput.value?.click()
@@ -251,7 +241,7 @@ body {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Mobile camera UI */
+/* Camera UI */
 .mobile-camera-ui {
   padding: 24px 20px;
 }
@@ -278,6 +268,7 @@ body {
   overflow: hidden;
   position: relative;
   transition: border-color 0.2s;
+  margin: 0 auto;
 }
 
 .camera-viewfinder:hover {
@@ -381,6 +372,11 @@ body {
   margin-top: 2px;
 }
 
+/* Tour link */
+.tour-link { text-align: center; margin: 32px 20px 0; }
+.tour-btn { display: inline-block; background: #2c1810; color: white; padding: 14px 32px; border-radius: 30px; text-decoration: none; font-size: 15px; font-weight: 600; transition: background 0.2s; }
+.tour-btn:hover { background: #8B4513; }
+
 /* Footer */
 .app-footer {
   text-align: center;
@@ -400,9 +396,4 @@ body {
   .hero-overlay p { font-size: 13px; }
   .app-container { padding-bottom: 60px; }
 }
-</style>
-<style>
-.tour-link { text-align: center; margin: 32px 20px 0; }
-.tour-btn { display: inline-block; background: #2c1810; color: white; padding: 14px 32px; border-radius: 30px; text-decoration: none; font-size: 15px; font-weight: 600; transition: background 0.2s; }
-.tour-btn:hover { background: #8B4513; }
 </style>
