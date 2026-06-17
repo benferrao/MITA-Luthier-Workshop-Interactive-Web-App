@@ -66,7 +66,7 @@
 
       <div class="legacy-overlay"></div>
 
-      <a href="/" class="back-link">← Home</a>
+      <NuxtLink to="/" class="back-link">← Home</NuxtLink>
       <div class="legacy-content">
         <p class="legacy-eyebrow">Cremona · Italy</p>
         <h1 class="legacy-title">The Cremona<br><em>Legacy</em></h1>
@@ -84,7 +84,7 @@
           recognised by UNESCO, continues unbroken in workshops across the
           city.
         </p>
-        <a href="/" class="legacy-cta">Back to the Workshop →</a>
+        <NuxtLink to="/" class="legacy-cta">Back to the Workshop →</NuxtLink>
       </div>
     </section>
   </div>
