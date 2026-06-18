@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <section class="hero">
+    <section class="index-hero">
       <div class="hero-text">
         <p class="hero-eyebrow">Cremona · Italy · MITA Project 2025–26</p>
         <h1 class="hero-title">The Violin<br><em>Workshop</em></h1>
@@ -327,7 +327,7 @@ function playSound() {
 body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 
 /* ── HERO ── */
-.hero{
+.index-hero{
   min-height:100vh;
   background:linear-gradient(160deg,#2c1810 0%,#8B4513 55%,#c8860a 100%);
   display:grid; grid-template-columns:1fr 1fr; overflow:hidden;
@@ -435,7 +435,7 @@ body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 .home-footer{background:#2c1810;padding:22px;text-align:center;color:rgba(255,255,255,.4);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
 
 @media(max-width:768px){
-  .hero{grid-template-columns:1fr;grid-template-rows:auto auto}
+  .index-hero{grid-template-columns:1fr;grid-template-rows:auto auto}
   .hero-text{padding:40px 24px 10px}
   .violin-container{grid-column:1;height:65vh;padding:16px}
   .tgrid{grid-template-columns:1fr}

@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-      <section class="hero">
+      <section class="home-hero">
         <!-- Left text -->
         <div class="hero-text">
           <p class="hero-eyebrow">Cremona · Italy · MITA Project 2025–26</p>
@@ -520,7 +520,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
   
-  .hero{
+  .home-hero{
     height:100vh;
     background:linear-gradient(160deg,#2c1810 0%,#8B4513 55%,#c8860a 100%);
     display:grid;
@@ -673,7 +673,7 @@
   .pbtn-gh:hover{background:#f5f0eb;color:#2c1810}
   
   @media(max-width:768px){
-    .hero{grid-template-columns:1fr;grid-template-rows:auto 1fr auto}
+    .home-hero{grid-template-columns:1fr;grid-template-rows:auto 1fr auto}
     .hero-text{grid-row:1;padding:60px 24px 20px}
     .violin-container{grid-column:1;grid-row:2;height:45vh}
     .loop-bar{grid-row:3;flex-wrap:wrap;gap:6px}
