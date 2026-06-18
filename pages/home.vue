@@ -69,9 +69,6 @@
             <span class="t-num">{{ t.num }}</span>
             <h3>{{ t.title }}</h3>
             <p>{{ t.desc }}</p>
-            <span class="tbadge" :class="t.ready ? 'bready':'bsoon'">
-              {{ t.ready ? 'Ready to explore' : 'Coming soon' }}
-            </span>
             <span class="tarr">→</span>
           </div>
         </div>
@@ -92,7 +89,7 @@
           </div>
           <div class="acard">
             <blockquote>"Everything is judged by feel and eye, not fixed measurement."</blockquote>
-            <cite>— Jönke, Luthier, Cremona</cite>
+            <cite>— Ralf Jönke, Violin maker, Cremona</cite>
             <div class="atags">
               <span v-for="tag in ['Maple','Spruce','Varnish','Scraper','Bridge','Sound Post']" :key="tag" class="atag">{{ tag }}</span>
             </div>
@@ -520,7 +517,6 @@
   </script>
   
   <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
   
@@ -686,4 +682,3 @@
     .side-panel{width:100%}
   }
   </style>
-  

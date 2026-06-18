@@ -71,7 +71,7 @@
 
       <!-- Single clear action -->
       <button class="camera-btn-primary" @click="triggerCamera">
-        📷 Take Photo
+        📷 Take/Choose a Photo
       </button>
 
       <p class="camera-tip">The system will identify the tool automatically.</p>
@@ -204,7 +204,6 @@ function handleVoiceFallback(text) {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 
@@ -215,10 +214,10 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .nav-tour-btn { color: rgba(255,255,255,.7); text-decoration: none; font-size: 13px; padding: 7px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,.2); transition: all .2s; }
 .nav-tour-btn:hover { color: white; border-color: white; }
 
-.hero { width: 100%; height: 180px; background: linear-gradient(135deg, #2c1810 0%, #8B4513 50%, #c8860a 100%); display: flex; align-items: center; justify-content: center; }
-.hero-overlay { text-align: center; color: white; padding: 20px; }
-.hero-overlay h1 { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; margin-bottom: 8px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-.hero-overlay p { font-size: 14px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; opacity: 0.9; }
+.hero { width: 100%; height: 130px; background: linear-gradient(135deg, #2c1810 0%, #8B4513 50%, #c8860a 100%); display: flex; align-items: center; justify-content: center; }
+.hero-overlay { text-align: center; color: white; padding: 14px 20px; }
+.hero-overlay h1 { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.hero-overlay p { font-size: 12px; font-weight: 300; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.9; }
 
 .app-container { max-width: 600px; margin: 0 auto; padding: 0 0 40px; }
 
@@ -295,8 +294,8 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .app-footer { text-align: center; margin-top: 48px; padding: 20px; color: #999; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border-top: 1px solid #e0d5c8; font-weight: 500; }
 
 @media (max-width: 768px) {
-  .hero { height: 150px; }
-  .hero-overlay h1 { font-size: 28px; }
+  .hero { height: 100px; }
+  .hero-overlay h1 { font-size: 22px; }
   .camera-viewfinder { height: 260px; }
   .app-container { padding-bottom: 60px; }
 }

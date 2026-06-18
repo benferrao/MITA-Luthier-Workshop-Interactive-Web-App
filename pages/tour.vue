@@ -275,7 +275,6 @@ function restart() {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 
@@ -291,10 +290,10 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .nav-exit-btn { background: transparent; color: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.2); padding: 7px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all .2s; font-family: 'Inter', sans-serif; }
 .nav-exit-btn:hover { color: white; border-color: white; }
 
-.hero { width: 100%; height: 180px; background: linear-gradient(135deg, #2c1810 0%, #8B4513 50%, #c8860a 100%); display: flex; align-items: center; justify-content: center; }
-.hero-overlay { text-align: center; color: white; padding: 20px; }
-.hero-overlay h1 { font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 8px; }
-.hero-overlay p { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.9; }
+.hero { width: 100%; height: 130px; background: linear-gradient(135deg, #2c1810 0%, #8B4513 50%, #c8860a 100%); display: flex; align-items: center; justify-content: center; }
+.hero-overlay { text-align: center; color: white; padding: 14px 20px; }
+.hero-overlay h1 { font-family: 'Playfair Display', serif; font-size: 30px; margin-bottom: 4px; }
+.hero-overlay p { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.9; }
 
 .app-container { max-width: 860px; margin: 0 auto; padding: 0 0 40px; }
 
@@ -357,8 +356,8 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .app-footer { text-align: center; margin-top: 48px; padding: 20px; color: #999; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border-top: 1px solid #e0d5c8; font-weight: 500; }
 
 @media (max-width: 768px) {
-  .hero { height: 140px; }
-  .hero-overlay h1 { font-size: 24px; }
+  .hero { height: 100px; }
+  .hero-overlay h1 { font-size: 22px; }
   .tour-image { height: 200px; }
   .nav-buttons { flex-direction: column; align-items: center; }
 }

@@ -204,7 +204,6 @@
           <span class="t-num">{{ t.num }}</span>
           <h3>{{ t.title }}</h3>
           <p>{{ t.desc }}</p>
-          <span class="tbadge bready">Ready to explore</span>
           <span class="tarr">→</span>
         </div>
       </div>
@@ -226,7 +225,7 @@
       </div>
       <blockquote class="workshop-quote">
         "Everything is judged by feel and eye, not fixed measurement."
-        <cite>— Jönke, Luthier, Cremona</cite>
+        <cite>— Ralf Jönke, Violin maker, Cremona</cite>
       </blockquote>
     </section>
 
@@ -324,7 +323,6 @@ function playSound() {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#f5f0eb;color:#2c1810}
 
