@@ -68,23 +68,7 @@
     <!-- ACT: result -->
     <ResultPanel v-if="currentState === 'ACT'"
       :item="selectedItem" :intent="selectedIntent"
-      @repair="openRepairOptions" @reset="reset" />
-
-    <!-- Visual repair options -->
-    <Transition name="popup">
-      <div v-if="showRepairOptions" class="popup-overlay" @click.self="showRepairOptions = false">
-        <div class="popup-card">
-          <h3>Not what you were looking for?</h3>
-          <p>Choose how you'd like to continue:</p>
-          <div class="repair-options">
-            <button class="repair-btn" @click="reset">🔍 Browse all tools</button>
-            <button class="repair-btn" @click="openVoiceFallback">🎙️ Describe it by voice</button>
-            <NuxtLink to="/tour" class="repair-btn">🎻 Start the guided tour</NuxtLink>
-            <NuxtLink to="/" class="repair-btn ghost">← Return to home</NuxtLink>
-          </div>
-        </div>
-      </div>
-    </Transition>
+      @reset="reset" />
 
     <!-- History — clickable -->
     <aside v-if="history.length" class="history">
@@ -113,12 +97,11 @@ const {
   items, intents,
   isAmbiguous,
   sense, selectCandidate,
-  selectIntent, repair, reset
+  selectIntent, reset
 } = useGroundingLoop()
 
 const showPopup = ref(false)
 const showVoiceFallback = ref(false)
-const showRepairOptions = ref(false)
 
 onMounted(() => {
   // Pop the voice assistant hint as soon as you arrive on this page,
@@ -128,13 +111,6 @@ onMounted(() => {
   setTimeout(() => { showPopup.value = true }, 500)
 })
 
-function openRepairOptions() { showRepairOptions.value = true }
-
-function openVoiceFallback() {
-  showRepairOptions.value = false
-  showVoiceFallback.value = true
-}
-
 function handleVoiceFallback(text) {
   const lower = text.toLowerCase()
   const match = items.value?.find(item =>
@@ -142,7 +118,7 @@ function handleVoiceFallback(text) {
   )
   showVoiceFallback.value = false
   if (match) sense(match.id)
-  else repair()
+  else reset()
 }
 </script>
 
@@ -186,10 +162,10 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .popup-enter-active, .popup-leave-active { transition: opacity 0.25s; }
 .popup-enter-from, .popup-leave-to { opacity: 0; }
 
-.repair-options { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
-.repair-btn { display: block; width: 100%; padding: 12px 20px; background: #f5f0eb; color: #2c1810; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; transition: all .2s; text-align: left; font-family: 'Inter', sans-serif; }
-.repair-btn:hover { background: #ede5d8; border-color: #8B4513; }
-.repair-btn.ghost { color: #999; }
+
+
+
+
 
 .history { margin: 40px 20px 0; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-top: 3px solid #8B4513; }
 .history h4 { margin-bottom: 4px; color: #8B4513; font-family: 'Playfair Display', serif; font-size: 16px; }

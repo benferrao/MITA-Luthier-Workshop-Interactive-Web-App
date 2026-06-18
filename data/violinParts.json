@@ -6,7 +6,13 @@
       "type": "violin_part",
       "image": "/images/bridge.jpg",
       "short": "Supports the strings and transmits vibrations to the body.",
-      "long": "The bridge is bought as a rough-cut maple blank and fitted individually to each instrument. The luthier carves the feet to match the exact arch of the top plate, sets the height for correct string action, and refines the curves — a process that takes 1 to 2 hours per bridge. The density of the wood matters acoustically: heavier wood vibrates more slowly, which can help eliminate wolf tones. Everything is judged by feel and eye, not fixed measurement.",
+      "long": "The bridge is bought as a rough-cut maple blank and fitted individually to each instrument. The luthier carves the feet to match the exact arch of the top plate, sets the height for correct string action, and refines the curves \u2014 a process that takes 1 to 2 hours per bridge.",
+      "byIntent": {
+        "function": "The bridge holds the strings at the correct height above the fingerboard and transmits their vibration into the body of the violin. It is never glued \u2014 string tension alone holds it upright, which is why a bridge can shift or fall if a string breaks.",
+        "sound": "Because the bridge is the only physical link between the strings and the body, its wood density directly shapes the tone. Heavier maple vibrates more slowly, which luthiers use to help eliminate unwanted wolf tones; a lighter bridge tends to brighten the sound.",
+        "history": "Bridges have kept roughly the same silhouette since the violin's earliest form in 16th-century Cremona, though the curve and cutout pattern have been refined for centuries to balance strength with acoustic transparency.",
+        "compare": "Unlike the sound post, which sits hidden inside the body, the bridge is the only major part of a violin that is entirely external and fully visible \u2014 and the only one not glued in place."
+      },
       "task": "task1",
       "ambiguityPair": null
     },
@@ -16,7 +22,13 @@
       "type": "violin_part",
       "image": "/images/zoomed violin.jpg",
       "short": "Sound holes that let air move in and out of the body.",
-      "long": "The f-holes are the two f-shaped openings cut into the belly of the violin. They allow air to move freely in and out of the body, which is essential for projection and tonal richness. They also serve a practical purpose during restoration — small clamps can be inserted through the f-holes to reglue open seams from the inside without full disassembly.",
+      "long": "The f-holes are the two f-shaped openings cut into the belly of the violin. They allow air to move freely in and out of the body, which is essential for projection and tonal richness.",
+      "byIntent": {
+        "function": "F-holes let the luthier reach inside the body during construction and repair \u2014 small clamps can be inserted through them to reglue open seams from the inside without taking the instrument apart.",
+        "sound": "The f-holes act as the violin's acoustic vent, allowing the air resonance inside the body to escape and project outward. Their length and width are tuned almost as precisely as the plates themselves \u2014 a fraction of a millimetre changes the instrument's air resonance frequency.",
+        "history": "The f-shape replaced simpler round or C-shaped sound holes used on early bowed instruments. By Stradivari's time the f-hole had been refined into the elegant, elongated form still used today.",
+        "compare": "Where the scroll is purely decorative, the f-holes are purely functional \u2014 removing them would silence the instrument almost entirely, even though they take up a small fraction of the surface area."
+      },
       "task": "task1",
       "ambiguityPair": null
     },
@@ -25,8 +37,14 @@
       "name": "Scroll",
       "type": "violin_part",
       "image": "/images/violin scroll.jpg",
-      "short": "The decorative spiral at the top — the maker's artistic signature.",
-      "long": "The scroll is carved by hand using gouges and a Japanese restoration saw for the initial rough cut, followed by finer work with chisels. It serves no acoustic function but is historically the maker's artistic signature — expert luthiers can often identify who made a violin just by examining the scroll. Jönke noted that the scroll is one of the most personal and expressive parts of the instrument.",
+      "short": "The decorative spiral at the top \u2014 the maker's artistic signature.",
+      "long": "The scroll is carved by hand using gouges and a Japanese restoration saw for the initial rough cut, followed by finer work with chisels.",
+      "byIntent": {
+        "function": "The scroll caps the pegbox at the top of the neck and serves as a handhold when the instrument is moved or held \u2014 beyond that, it plays no role in producing sound.",
+        "sound": "The scroll has essentially no acoustic function. Its mass is too far from the vibrating body and strings to meaningfully affect tone, which is why makers feel free to carve it expressively rather than to any acoustic specification.",
+        "history": "Historically the scroll is the maker's artistic signature \u2014 expert luthiers can often identify who made a violin just by examining the scroll's proportions and carving style, the way an art historian recognises a painter's brushwork.",
+        "compare": "Unlike the f-holes or sound post, which are governed by acoustic necessity, the scroll is the one part of the violin where the maker has almost complete creative freedom."
+      },
       "task": "task1",
       "ambiguityPair": null
     },
@@ -36,9 +54,15 @@
       "type": "luthier_tool",
       "image": "/images/mini planer 1.jpg",
       "short": "A miniature hand plane for shaping the arched plates.",
-      "long": "The finger plane — also called a thumb plane — is a tiny hand plane held between the fingers, used for fine surface finishing on the top and back plates. Jönke also referenced a compass plane with a curved sole for working curved surfaces. He sources specialist tools from Cremona Tools and Dictum, the two main suppliers for luthier equipment. Unlike a carpenter's plane, it gives the maker precise control over delicate curves.",
+      "long": "The finger plane \u2014 also called a thumb plane \u2014 is a tiny hand plane held between the fingers, used for fine surface finishing on the top and back plates.",
+      "byIntent": {
+        "function": "Held between the fingers rather than gripped like a standard plane, it shaves thin curls of wood to refine the arching of the top and back plates after the rougher carving is done.",
+        "sound": "The finger plane doesn't touch the final sound directly, but it determines the precise graduation \u2014 the thickness profile \u2014 of the plates, which is one of the single biggest factors in how a violin resonates.",
+        "history": "Specialist hand planes like this have been used by Cremonese luthiers since the Amati and Stradivari workshops of the 16th and 17th centuries, with the basic tool shape barely changed in 400 years.",
+        "compare": "The finger plane and the scraper do similar work in sequence \u2014 the plane removes more material quickly, while the scraper that follows it produces the final glass-smooth surface."
+      },
       "task": "task2",
-      "ambiguityPair": "scraper"
+      "ambiguityPair": null
     },
     {
       "id": "scraper",
@@ -46,17 +70,29 @@
       "type": "luthier_tool",
       "image": "/images/dark  scraper.jpg",
       "short": "A steel blade that produces a glass-smooth surface.",
-      "long": "The scraper is a thin flat piece of hardened steel used after the finger plane to shave and smooth wood surfaces. Jönke explained there are multiple sizes for different parts — a large flat scraper for the belly and back plates, curved scrapers for arched surfaces, a small tightly curved one for the fingerboard radius, and a straight rigid one for the ribs. Sharpening angle matters enormously: 45° is more aggressive, 90° less so. A properly sharpened scraper produces fine curling shavings, not dust.",
+      "long": "The scraper is a thin flat piece of hardened steel used after the finger plane to shave and smooth wood surfaces.",
+      "byIntent": {
+        "function": "Scrapers come in several shapes for different parts \u2014 a large flat one for the belly and back, curved ones for arched surfaces, a tightly curved one for the fingerboard radius, and a straight rigid one for the ribs.",
+        "sound": "A properly finished surface from the scraper affects how evenly varnish absorbs into the wood later, which in turn affects the tonal consistency across the instrument's surface.",
+        "history": "Sharpening angle has been debated among luthiers for generations: a 45\u00b0 edge cuts more aggressively, while 90\u00b0 is gentler \u2014 different workshops favour different angles as part of their individual technique.",
+        "compare": "Where the finger plane removes material, the scraper refines it \u2014 a properly sharpened scraper produces fine curling shavings rather than dust, the opposite of how sandpaper works."
+      },
       "task": "task2",
-      "ambiguityPair": "plane"
+      "ambiguityPair": null
     },
     {
       "id": "varnish",
       "name": "Wood & Varnish",
       "type": "material",
       "image": "/images/varnish.jpg",
-      "short": "The legendary Cremonese varnish — ground, UV, pigment, oil.",
-      "long": "Jönke described the varnishing process in detail. First a ground layer is applied to the bare wood, then placed under a UV lamp for several days — replicating what natural sunlight does over months, giving the wood its characteristic golden-yellow base. Coloured oil varnish is then applied in thin layers over this ground, using just four pigments to mix every shade including the deep red-amber of Cremonese instruments. He sources pigments from Mr. Dimes in England. The exact formula is a closely guarded secret — as he put it, 'Amati would kill me'.",
+      "short": "The legendary Cremonese varnish \u2014 ground, UV, pigment, oil.",
+      "long": "J\u00f6nke described the varnishing process in detail: a ground layer is applied to the bare wood, then placed under a UV lamp for several days to give the wood its characteristic golden base.",
+      "byIntent": {
+        "function": "Varnish protects the wood from moisture and wear, and helps the surface withstand decades of handling \u2014 but in Cremonese tradition it's applied as thinly as possible so it doesn't dampen the wood's natural vibration.",
+        "sound": "Coloured oil varnish is applied in thin layers over the UV-cured ground; too thick a coat can noticeably mute the instrument's resonance, which is why luthiers build it up gradually rather than in one heavy coat.",
+        "history": "J\u00f6nke mixes every shade \u2014 including the deep red-amber associated with classic Cremonese instruments \u2014 from just four pigments sourced from Mr. Dimes in England. The exact formula is a closely guarded secret, passed down workshop by workshop; as he put it, 'Amati would kill me.'",
+        "compare": "Unlike touch-up paint, which is mixed to match an existing finish during restoration, the original varnish is built from scratch in careful layers on bare, UV-treated wood."
+      },
       "task": "task3",
       "ambiguityPair": null
     },
@@ -66,7 +102,13 @@
       "type": "luthier_tool",
       "image": "/images/tuning fork 1.jpg",
       "short": "Produces a perfect reference pitch for tuning.",
-      "long": "The tuning fork is a two-pronged metal instrument that vibrates at a precise frequency when struck, producing a pure reference tone. Luthiers use it to tune violins accurately and to test the resonance of the instrument body. It is one of the simplest yet most essential tools in the workshop — a standard A440 fork gives the reference pitch from which all strings are tuned.",
+      "long": "The tuning fork is a two-pronged metal instrument that vibrates at a precise frequency when struck, producing a pure reference tone.",
+      "byIntent": {
+        "function": "Luthiers strike it and hold the base against a surface to use the reference pitch \u2014 typically A440 \u2014 as the starting point from which every string on the violin is tuned.",
+        "sound": "Because a tuning fork's frequency is fixed by its physical dimensions rather than tension like a string, it gives an extremely stable reference tone that doesn't drift with temperature the way a violin string can.",
+        "history": "The tuning fork was invented in 1711 by English musician John Shore, making it newer than the violin itself, which had already been refined in Cremona for over a century by then.",
+        "compare": "Unlike every other tool in the workshop, the tuning fork shapes nothing \u2014 it exists purely as a reference, the opposite role to cutting or carving tools like the scraper or finger plane."
+      },
       "task": "task2",
       "ambiguityPair": null
     },
@@ -76,7 +118,13 @@
       "type": "violin_part",
       "image": "/images/tuning peg.jpg",
       "short": "Adjusts string tension to tune the violin.",
-      "long": "Tuning pegs are tapered wooden pins fitted into the pegbox. Jönke noted that peg wood choice affects vibration — different densities change how the instrument resonates at the scroll end. He demonstrated removing the chinrest and discussed how even small changes to components at the scroll end influence the overall resonance of the instrument. Pegs are traditionally made from ebony, rosewood, or boxwood.",
+      "long": "Tuning pegs are tapered wooden pins fitted into the pegbox, traditionally made from ebony, rosewood, or boxwood.",
+      "byIntent": {
+        "function": "Turning a peg winds or unwinds the string, increasing or decreasing tension to raise or lower its pitch \u2014 friction between the tapered peg and the pegbox hole is what holds it in place once set.",
+        "sound": "Peg wood choice affects vibration at the scroll end of the instrument \u2014 different densities change how that end of the violin resonates, contributing subtly to the overall tone.",
+        "history": "Friction pegs of this same basic tapered design have been used on bowed string instruments since long before the modern violin existed in 16th-century Cremona, making them one of the oldest unchanged components.",
+        "compare": "While the tailpiece anchors strings at the bottom, the tuning pegs anchor and adjust them at the top \u2014 together the two ends determine the full vibrating length and tension of each string."
+      },
       "task": "task1",
       "ambiguityPair": null
     },
@@ -86,7 +134,13 @@
       "type": "luthier_tool",
       "image": "/images/wood file 1.jpg",
       "short": "Shapes and smooths wood during construction.",
-      "long": "Wood files are essential luthier tools used to shape, fit, and smooth wooden parts of the violin. They come in many profiles — flat, round, half-round — allowing the maker to work on both flat surfaces and curved areas like the inside of the scroll or the edges of the plates. Like many tools in Jönke's workshop, his files were bought used and slightly rusty — as he noted, patina never affects performance.",
+      "long": "Wood files are essential luthier tools used to shape, fit, and smooth wooden parts of the violin, available in flat, round, and half-round profiles.",
+      "byIntent": {
+        "function": "Different file profiles let the maker work both flat surfaces and curved areas, such as the inside of the scroll or the edges of the plates, where a plane or scraper can't easily reach.",
+        "sound": "Files are typically used on structural and decorative areas like the scroll and edges rather than the resonating plates themselves, so their impact on sound is mostly indirect \u2014 through overall fit and finish quality.",
+        "history": "Tools like J\u00f6nke's were bought used and slightly rusty \u2014 in his workshop, patina on a tool is treated as irrelevant to performance, a practical attitude shared by many working luthiers rather than collectors.",
+        "compare": "Where the finger plane and scraper are used mainly on the broad flat and arched plate surfaces, the wood file is reached for when working tighter curves and edges those tools can't access."
+      },
       "task": "task2",
       "ambiguityPair": null
     },
@@ -96,7 +150,13 @@
       "type": "luthier_tool",
       "image": "/images/UV cabin.jpg",
       "short": "Accelerates varnish curing using ultraviolet light.",
-      "long": "Jönke uses a UV lamp to accelerate what sunlight would do naturally over months. A few days under UV produces the golden yellowing of the wood ground that would otherwise take half a year in the sun. He turned it off during our visit — it is harmful to eyes. The effect mimics what happens to centuries-old instruments through decades of natural sun exposure, and is one of the modern tools every professional uses but rarely advertises.",
+      "long": "J\u00f6nke uses a UV lamp to accelerate what sunlight would do naturally over months, producing the golden yellowing of the wood ground in just a few days.",
+      "byIntent": {
+        "function": "The instrument's ground layer is placed inside the UV cabin for several days; the cabin is switched off whenever anyone is nearby, since the light is harmful to the eyes.",
+        "sound": "The UV-cured ground forms the base that the coloured varnish sits on top of \u2014 a more even, consistent cure here helps the later varnish layers build up smoothly without affecting how freely the wood can vibrate.",
+        "history": "This is one of the few genuinely modern tools in an otherwise centuries-old process \u2014 historically, makers like Stradivari relied entirely on natural sunlight over months to achieve the same golden base tone.",
+        "compare": "Unlike touch-up paint, which is mixed to repair existing finishes, the UV cabin works only on bare new wood, right at the very start of the varnishing process."
+      },
       "task": "task3",
       "ambiguityPair": null
     },
@@ -106,7 +166,13 @@
       "type": "material",
       "image": "/images/touch up paint.jpg",
       "short": "Used to restore and repair varnish on old violins.",
-      "long": "Touch up paint is a carefully mixed varnish used by restorers to repair scratches, chips, and worn areas on antique violins. Matching the exact colour and texture of centuries-old Cremonese varnish is one of the most delicate skills in instrument restoration. Jönke mixes colours from just four pigments, controlling transparency by adjusting the pigment ratio — more pigment gives opacity, less allows the wood grain to show through.",
+      "long": "Touch up paint is a carefully mixed varnish used by restorers to repair scratches, chips, and worn areas on antique violins.",
+      "byIntent": {
+        "function": "A restorer applies it precisely to damaged spots \u2014 scratches, chips, worn patches \u2014 to repair the finish without needing to revarnish the entire instrument.",
+        "sound": "Because it's applied only to small, localised areas, touch-up paint has negligible effect on tone \u2014 its job is purely cosmetic and protective, unlike the original varnish coats applied during construction.",
+        "history": "Matching the exact colour and texture of centuries-old Cremonese varnish is considered one of the most delicate skills in instrument restoration, since old varnish ages and shifts in tone over decades.",
+        "compare": "J\u00f6nke mixes touch-up colours from the same four base pigments used for original varnish, controlling transparency by pigment ratio \u2014 more pigment for opacity, less to let the wood grain show through."
+      },
       "task": "task3",
       "ambiguityPair": null
     },
@@ -116,7 +182,13 @@
       "type": "violin_part",
       "image": "/images/ribs 1.jpg",
       "short": "Thin maple strips bent to form the sides of the body.",
-      "long": "The ribs are thin strips of maple bent into shape using a bending iron — an electrically heated metal cylinder reaching 160 to 180°C. The wood is moistened slightly, pressed against the hot iron with gentle pressure, held for 10 to 20 seconds, then fanned to cool. The heat breaks down the lignin in the wood fibres, allowing them to reset permanently in the new curved shape. The ribs are assembled around an internal mold which is removed once they are set.",
+      "long": "The ribs are thin strips of maple bent into shape using a bending iron heated to 160\u2013180\u00b0C, then assembled around an internal mold.",
+      "byIntent": {
+        "function": "The wood is moistened slightly, pressed against the hot iron with gentle pressure for 10 to 20 seconds, then fanned to cool \u2014 the heat breaks down lignin in the wood fibres, letting them reset permanently in the new curved shape.",
+        "sound": "The ribs form the side walls of the resonating body and determine its depth, which influences the air volume inside and therefore the instrument's overall resonant character.",
+        "history": "Bending wood with a heated iron to shape violin ribs is a technique that has remained essentially unchanged since the earliest Cremonese workshops of the 1500s.",
+        "compare": "While the violin back is carved from a solid block of figured maple, the ribs are made from much thinner strips and shaped entirely by bending rather than carving."
+      },
       "task": "task1",
       "ambiguityPair": null
     },
@@ -126,7 +198,13 @@
       "type": "violin_part",
       "image": "/images/sound post raw.jpg",
       "short": "A spruce rod inside the body that transfers vibrations.",
-      "long": "The sound post is a small cylindrical spruce rod wedged inside the body between the top and back plates, positioned just behind the treble foot of the bridge. It transmits vibrations from the top plate to the back plate and provides structural support against the significant downward pressure of the strings. Moving it even slightly changes the sound — closer to the bridge gives a brighter, tighter tone; further away gives warmth and openness. It is inserted and positioned using a thin hooked rod through the f-hole.",
+      "long": "The sound post is a small cylindrical spruce rod wedged inside the body between the top and back plates, positioned just behind the treble foot of the bridge.",
+      "byIntent": {
+        "function": "It is inserted and positioned using a thin hooked rod passed through the f-hole, since it isn't glued in place \u2014 only friction and precise fit hold it upright.",
+        "sound": "It transmits vibration from the top plate to the back plate and provides structural support against string pressure. Moving it even slightly changes the sound: closer to the bridge gives a brighter, tighter tone, further away gives more warmth and openness.",
+        "history": "Luthiers have nicknamed it 'the soul' of the violin in several European languages (anima in Italian, \u00e2me in French) for centuries, reflecting just how disproportionately important this small, hidden part is to the instrument's character.",
+        "compare": "Like the bridge, the sound post is never glued \u2014 both rely entirely on string tension and precise fit, making them the two most adjustable parts of an otherwise fixed instrument."
+      },
       "task": "task1",
       "ambiguityPair": null
     },
@@ -136,7 +214,13 @@
       "type": "violin_part",
       "image": "/images/tailpiece 1.jpg",
       "short": "Anchors the strings at the bottom of the violin.",
-      "long": "The tailpiece anchors the lower ends of all four strings and is attached to the body via the tailgut looped around the end pin. It can include fine tuners for precise pitch adjustment. Like the peg material, the weight and density of the tailpiece influences how the instrument resonates — Jönke discussed how components at both ends of the string affect the overall vibrational behaviour of the instrument.",
+      "long": "The tailpiece anchors the lower ends of all four strings and is attached to the body via the tailgut looped around the end pin.",
+      "byIntent": {
+        "function": "Modern tailpieces often include built-in fine tuners, small screws that allow for precise pitch adjustment without having to turn the larger pegs at the top of the instrument.",
+        "sound": "The weight and density of the tailpiece influences how the instrument resonates \u2014 J\u00f6nke discussed how components at both ends of the string, pegs and tailpiece alike, affect overall vibrational behaviour.",
+        "history": "Early tailpieces were carved from a single piece of wood with no fine tuners at all; fine tuners became widespread only as steel strings \u2014 which need much finer pitch control than gut strings \u2014 grew popular in the 20th century.",
+        "compare": "Where the tuning pegs handle large pitch changes at the top of the string, the tailpiece's fine tuners (when fitted) handle small precise adjustments at the bottom."
+      },
       "task": "task1",
       "ambiguityPair": null
     },
@@ -146,7 +230,13 @@
       "type": "violin_part",
       "image": "/images/violin back.jpg",
       "short": "The back plate, carved from figured maple.",
-      "long": "The back plate is typically carved from figured maple sourced from Romania and the Balkans — currently considered among the best regions for violin-quality wood. Jönke visits specialist warehouses, inspects individual pieces for figure (the flame pattern), density, and resonance, and selects by feel and tap tone. A violin takes 200 to 250 hours to make, and selecting the right piece of maple is considered half the job.",
+      "long": "The back plate is typically carved from figured maple sourced from Romania and the Balkans, currently considered among the best regions for violin-quality wood.",
+      "byIntent": {
+        "function": "J\u00f6nke visits specialist warehouses, inspects individual pieces for figure (the flame pattern), density, and resonance, and selects the wood by feel and tap tone before any carving begins.",
+        "sound": "The back plate reflects vibration from the sound post back through the body, working in tandem with the spruce top \u2014 the maple's density and stiffness shape how brightly or warmly the instrument projects.",
+        "history": "A violin takes 200 to 250 hours to make in total, and selecting the right piece of maple for the back is considered half the job \u2014 the wood's quality sets a ceiling on the instrument's eventual sound that no amount of skilled carving can exceed.",
+        "compare": "While the top plate is carved from spruce for lightness and flexibility, the back is carved from denser maple \u2014 the pairing of the two different woods is fundamental to how a violin produces its characteristic tone."
+      },
       "task": "task1",
       "ambiguityPair": null
     },
@@ -156,15 +246,37 @@
       "type": "luthier_tool",
       "image": "/images/violin mold 1.jpg",
       "short": "The internal form used to shape the violin body during construction.",
-      "long": "The violin mold is a wooden template around which the ribs are bent and assembled to create the correct body shape. Jönke uses internal molds — the same approach used by the Cremonese masters. The mold is removed after the ribs are set; it is only a construction aid. Many of Stradivari's original molds are preserved at the Museo del Violino in Cremona, giving modern luthiers a direct connection to historical making methods.",
+      "long": "The violin mold is a wooden template around which the ribs are bent and assembled to create the correct body shape.",
+      "byIntent": {
+        "function": "The ribs are glued and clamped around the mold while still warm and pliable from bending; once the rib structure is set, the mold is removed and the body is closed with the top and back plates.",
+        "sound": "The mold doesn't touch the finished instrument at all and has no acoustic role itself \u2014 but the precision of its shape determines the body outline and proportions that do define the violin's resonance.",
+        "history": "J\u00f6nke uses internal molds, the same construction approach used by the Cremonese masters. Many of Stradivari's original molds are preserved at the Museo del Violino in Cremona, giving modern luthiers a direct physical link to his historical methods.",
+        "compare": "Unlike every other item in this workshop, the mold never becomes part of the finished violin at all \u2014 it exists purely as a temporary construction aid, then is removed and reused for the next instrument."
+      },
       "task": "task2",
       "ambiguityPair": null
     }
   ],
   "intents": [
-    { "id": "function", "label": "How is it used?", "icon": "wrench" },
-    { "id": "sound", "label": "How does it affect sound?", "icon": "note" },
-    { "id": "history", "label": "What is its history?", "icon": "scroll" },
-    { "id": "compare", "label": "Compare with similar", "icon": "search" }
+    {
+      "id": "function",
+      "label": "How is it used?",
+      "icon": "wrench"
+    },
+    {
+      "id": "sound",
+      "label": "How does it affect sound?",
+      "icon": "note"
+    },
+    {
+      "id": "history",
+      "label": "What is its history?",
+      "icon": "scroll"
+    },
+    {
+      "id": "compare",
+      "label": "Compare with similar",
+      "icon": "search"
+    }
   ]
 }

@@ -5,19 +5,34 @@
       <div class="result-content">
         <h2>{{ item.name }}</h2>
         <span class="intent-badge">{{ intent.label }}</span>
-        <p>{{ item.long }}</p>
+        <p>{{ displayText }}</p>
       </div>
     </div>
     <div class="actions">
-      <button class="btn-secondary" @click="$emit('repair')">That is not what I meant</button>
-      <button class="btn-primary" @click="$emit('reset')">Explore another tool</button>
+      <button class="btn-back" @click="$emit('reset')">← Back to all tools</button>
     </div>
   </div>
 </template>
 
 <script setup>
-defineProps({ item: { type: Object, required: true }, intent: { type: Object, required: true } })
-defineEmits(['repair', 'reset'])
+import { computed } from 'vue'
+
+const props = defineProps({
+  item: { type: Object, required: true },
+  intent: { type: Object, required: true }
+})
+defineEmits(['reset'])
+
+// Render the content specific to the selected intent. Falls back to the
+// item's general description only if byIntent data is somehow missing,
+// so the panel never shows a blank result.
+const displayText = computed(() => {
+  const byIntent = props.item.byIntent
+  if (byIntent && byIntent[props.intent.id]) {
+    return byIntent[props.intent.id]
+  }
+  return props.item.long
+})
 </script>
 
 <style scoped>
@@ -28,8 +43,10 @@ defineEmits(['repair', 'reset'])
 .result-content h2 { margin: 0 0 8px; }
 .intent-badge { display: inline-block; background: #E3F2FD; color: #1565C0; padding: 4px 12px; border-radius: 20px; font-size: 13px; margin-bottom: 12px; }
 .result-content p { line-height: 1.6; color: #333; }
-.actions { display: flex; gap: 12px; justify-content: center; }
-.btn-primary, .btn-secondary { cursor: pointer; padding: 10px 20px; border-radius: 8px; font-size: 14px; border: none; }
-.btn-primary { background: #2E75B6; color: white; }
-.btn-secondary { background: #f5f5f5; color: #666; border: 1px solid #ddd; }
+.actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-back, 
+.btn-back { background: #2E75B6; color: white; }
+.btn-back:hover { background: #235d92; }
+
+
 </style>

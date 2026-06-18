@@ -196,7 +196,7 @@
       <div class="tgrid">
         <div
           v-for="t in tasks" :key="t.key" class="tcard"
-          @click="playSound(); navigateTo(t.link)"
+          @click="navigateTo(t.link)"
           role="button" tabindex="0"
           @keydown.enter="navigateTo(t.link)"
         >
@@ -276,7 +276,6 @@ const panel = reactive({ open: false, name: '', short: '', long: '', image: '' }
 
 function openHotspot(h) {
   Object.assign(panel, { open: true, name: h.name, short: h.short, long: h.long, image: h.image })
-  playSound()
 }
 
 const tooltipStyle = computed(() => {
@@ -304,22 +303,6 @@ const stages = [
   { num:'04', title:'The Setup',      duration:'10–15 hours', desc:"Bridge, pegs, fingerboard and sound post are fitted with millimetre precision." },
 ]
 
-function playSound() {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)()
-    const freq = 392
-    ;[1,2,3,4,5].forEach((h,i) => {
-      const w = [1,0.45,0.2,0.1,0.05]
-      const osc = ctx.createOscillator(), g = ctx.createGain()
-      osc.connect(g); g.connect(ctx.destination)
-      osc.type = 'sine'; osc.frequency.value = freq * h
-      g.gain.setValueAtTime(0, ctx.currentTime)
-      g.gain.linearRampToValueAtTime(0.055 * w[i], ctx.currentTime + 0.04)
-      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.2)
-      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 2.2)
-    })
-  } catch(e) {}
-}
 </script>
 
 <style>

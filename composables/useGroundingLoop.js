@@ -68,6 +68,7 @@ export function useGroundingLoop() {
     selectedIntent.value = intents.find(i => i.id === intentId)
     currentState.value = 'ACT'
     history.value.push({
+      itemId: selectedItem.value.id,
       item: selectedItem.value.name,
       intent: selectedIntent.value.label,
       time: new Date().toLocaleTimeString()
@@ -75,10 +76,17 @@ export function useGroundingLoop() {
   }
 
   function repair() {
-    errorMessage.value = 'Let me ask again to make sure...'
-    selectedItem.value = null
+    // Keep the item selected but clear the intent — sends the user back
+    // to IntentPanel rather than a blank GROUND state with nothing visible.
     selectedIntent.value = null
-    currentState.value = 'GROUND'
+    errorMessage.value = ''
+    if (candidates.value.length > 0) {
+      selectedItem.value = candidates.value[0]
+      currentState.value = 'GROUND'
+    } else {
+      currentState.value = 'IDLE'
+      selectedItem.value = null
+    }
   }
 
   function reset() {

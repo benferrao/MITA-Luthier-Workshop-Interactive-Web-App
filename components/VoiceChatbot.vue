@@ -30,6 +30,11 @@
         </div>
       </div>
 
+      <!-- Stop speaking button — only shown while the chatbot is talking -->
+      <div v-if="speaking" class="stop-row">
+        <button class="stop-btn" @click="stopSpeaking">⏹ Stop speaking</button>
+      </div>
+
       <!-- Input area -->
       <div class="chatbot-input">
         <!-- Text input -->
@@ -55,12 +60,13 @@
 </template>
 
 <script setup>
-import { ref, nextTick, onMounted } from 'vue'
+import { ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import partsData from '~/data/violinParts.json'
 
 const isOpen = ref(false)
 const listening = ref(false)
 const thinking = ref(false)
+const speaking = ref(false)
 const supported = ref(true)
 const messages = ref([])
 const messagesEl = ref(null)
@@ -84,8 +90,14 @@ onMounted(() => {
   recognition.onend = () => { listening.value = false }
 })
 
+onBeforeUnmount(() => {
+  // Don't leave the browser talking after the user navigates away
+  if (synth) synth.cancel()
+})
+
 function toggleOpen() {
   isOpen.value = !isOpen.value
+  if (!isOpen.value) stopSpeaking()
 }
 
 function startListening() {
@@ -114,6 +126,13 @@ function handleUserMessage(text) {
   }, 800)
 }
 
+// Trims any answer down to at most two sentences before it is shown or
+// spoken, so responses stay quick to read and quick to listen to.
+function limitToTwoSentences(text) {
+  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text]
+  return sentences.slice(0, 2).join(' ').trim()
+}
+
 function findAnswer(question) {
   const lower = question.toLowerCase()
   const items = partsData.items
@@ -126,37 +145,35 @@ function findAnswer(question) {
     )
   )
 
+  let raw
+
   if (matchedItem) {
     if (lower.includes('sound') || lower.includes('tone') || lower.includes('acoustic')) {
-      return `${matchedItem.name}: ${matchedItem.long} This affects the sound because every part of the violin contributes to how vibrations travel through the instrument.`
+      raw = matchedItem.byIntent?.sound || matchedItem.long
+    } else if (lower.includes('history') || lower.includes('origin') || lower.includes('old') || lower.includes('cremona')) {
+      raw = matchedItem.byIntent?.history || matchedItem.long
+    } else if (lower.includes('compare') || lower.includes('similar') || lower.includes('different')) {
+      raw = matchedItem.byIntent?.compare || matchedItem.long
+    } else if (lower.includes('use') || lower.includes('work') || lower.includes('function')) {
+      raw = matchedItem.byIntent?.function || matchedItem.long
+    } else {
+      raw = matchedItem.short + ' ' + matchedItem.long
     }
-    if (lower.includes('history') || lower.includes('origin') || lower.includes('old') || lower.includes('cremona')) {
-      return `${matchedItem.name} has deep roots in Cremona's luthier tradition. ${matchedItem.long}`
-    }
-    return `${matchedItem.name}: ${matchedItem.long}`
+  } else if (lower.includes('violin') && (lower.includes('make') || lower.includes('build') || lower.includes('long'))) {
+    raw = 'Making a violin takes between 200 and 250 hours of careful work. The luthier selects wood, carves the plates, bends the ribs, fits all the parts together, and applies multiple layers of varnish.'
+  } else if (lower.includes('cremona')) {
+    raw = "Cremona is a city in northern Italy famous for producing the world's greatest violins. Masters like Stradivari, Guarneri, and Amati worked here in the 17th and 18th centuries."
+  } else if (lower.includes('varnish') || lower.includes('colour') || lower.includes('color')) {
+    raw = 'The Cremonese varnish is one of the great mysteries of violin making. Jönke uses just four pigments to mix every shade, including the deep red-amber of classic instruments.'
+  } else if (lower.includes('wood') || lower.includes('maple') || lower.includes('spruce')) {
+    raw = 'Violin makers use spruce for the top plate and maple for the back, ribs, and neck. Choosing the right piece — by eye, tap tone, and feel — is considered half the job.'
+  } else if (lower.includes('stradivari') || lower.includes('stradivarius')) {
+    raw = 'Antonio Stradivari was the greatest violin maker in history, working in Cremona in the 17th and 18th centuries. His instruments are still considered the finest ever made.'
+  } else {
+    raw = 'I am not sure about that one. Try asking about a specific part like the bridge, scroll, or f-holes.'
   }
 
-  if (lower.includes('violin') && (lower.includes('make') || lower.includes('build') || lower.includes('long'))) {
-    return 'Making a violin takes between 200 and 250 hours of careful work. The luthier selects wood, carves the plates, bends the ribs, fits all the parts together, and applies multiple layers of varnish — each cured before the next is added.'
-  }
-
-  if (lower.includes('cremona')) {
-    return 'Cremona is a city in northern Italy famous for producing the world\'s greatest violins. Masters like Stradivari, Guarneri, and Amati worked here in the 17th and 18th centuries. Today the tradition continues with modern luthiers like Jönke, whose workshop we visited.'
-  }
-
-  if (lower.includes('varnish') || lower.includes('colour') || lower.includes('color')) {
-    return 'The Cremonese varnish is one of the great mysteries of violin making. Jönke uses just four pigments to mix every shade, including the deep red-amber of classic instruments. The exact formula is a closely guarded secret — as he put it, Amati would kill me.'
-  }
-
-  if (lower.includes('wood') || lower.includes('maple') || lower.includes('spruce')) {
-    return 'Violin makers use spruce for the top plate and maple for the back, ribs, and neck. The wood is sourced mainly from Romania and the Balkans. Choosing the right piece — by eye, tap tone, and feel — is considered half the job of making a great violin.'
-  }
-
-  if (lower.includes('stradivari') || lower.includes('stradivarius')) {
-    return 'Antonio Stradivari was the greatest violin maker in history, working in Cremona in the 17th and 18th centuries. His instruments are still considered the finest ever made and are worth millions today. Many of his original molds are preserved at the Museo del Violino in Cremona.'
-  }
-
-  return "I am not sure about that one. Try asking about a specific part like the bridge, scroll, f-holes, or a tool like the scraper or finger plane."
+  return limitToTwoSentences(raw)
 }
 
 function speak(text) {
@@ -166,7 +183,15 @@ function speak(text) {
   utterance.lang = 'en-US'
   utterance.rate = 0.9
   utterance.pitch = 1
+  utterance.onstart = () => { speaking.value = true }
+  utterance.onend = () => { speaking.value = false }
+  utterance.onerror = () => { speaking.value = false }
   synth.speak(utterance)
+}
+
+function stopSpeaking() {
+  if (synth) synth.cancel()
+  speaking.value = false
 }
 
 async function scrollToBottom() {
@@ -265,6 +290,24 @@ async function scrollToBottom() {
   0%, 80%, 100% { opacity: 0; }
   40% { opacity: 1; }
 }
+
+.stop-row {
+  padding: 8px 16px 0;
+  display: flex;
+  justify-content: center;
+}
+.stop-btn {
+  cursor: pointer;
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 2px solid #e53935;
+  background: #ffebee;
+  color: #e53935;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.stop-btn:hover { background: #ffd7d7; }
 
 .chatbot-input {
   padding: 12px 16px;
