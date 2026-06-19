@@ -62,7 +62,7 @@
         <div class="ground-header">
           <p class="ground-label">Here is what I found — choose what you'd like to know:</p>
         </div>
-        <IntentPanel :item="selectedItem" :intents="intents" @select="selectIntent" />
+        <IntentPanel :item="selectedItem" :intents="intents" @select="selectIntent" @reset="reset" />
       </div>
     </div>
 
