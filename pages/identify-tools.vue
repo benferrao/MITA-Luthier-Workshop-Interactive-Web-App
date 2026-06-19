@@ -53,22 +53,25 @@
       <div class="spinner" />
     </div>
 
-    <!-- GROUND: disambiguation -->
-    <DisambiguationPanel v-if="currentState === 'GROUND' && isAmbiguous && !selectedItem"
-      :candidates="candidates" @select="selectCandidate" />
+    <!-- GROUND: disambiguation + intent selection (centered horizontally + vertically) -->
+    <div v-if="currentState === 'GROUND'" class="ground-stage">
+      <DisambiguationPanel v-if="isAmbiguous && !selectedItem"
+        :candidates="candidates" @select="selectCandidate" />
 
-    <!-- GROUND: intent selection -->
-    <div v-if="currentState === 'GROUND' && selectedItem" class="intent-touch">
-      <div class="ground-header">
-        <p class="ground-label">Here is what I found — choose what you'd like to know:</p>
+      <div v-if="selectedItem" class="intent-touch">
+        <div class="ground-header">
+          <p class="ground-label">Here is what I found — choose what you'd like to know:</p>
+        </div>
+        <IntentPanel :item="selectedItem" :intents="intents" @select="selectIntent" />
       </div>
-      <IntentPanel :item="selectedItem" :intents="intents" @select="selectIntent" />
     </div>
 
-    <!-- ACT: result -->
-    <ResultPanel v-if="currentState === 'ACT'"
-      :item="selectedItem" :intent="selectedIntent"
-      @reset="reset" />
+    <!-- ACT: result (650px width, centered) -->
+    <div v-if="currentState === 'ACT'" class="result-stage">
+      <ResultPanel
+        :item="selectedItem" :intent="selectedIntent"
+        @reset="reset" />
+    </div>
 
     <!-- History — clickable -->
     <aside v-if="history.length" class="history">
@@ -138,7 +141,7 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .hero-overlay h1 { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 .hero-overlay p { font-size: 12px; font-weight: 300; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.9; }
 
-.app-container { max-width: 860px; margin: 0 auto; padding: 0 0 40px; }
+.app-container { width: 100%; min-height: 100vh; display: flex; flex-direction: column; padding: 0 0 40px; }
 
 .error-msg { text-align: center; color: #c0392b; background: #fdf0ed; padding: 10px 20px; border-radius: 8px; margin: 12px 20px; border-left: 4px solid #c0392b; }
 
@@ -146,6 +149,33 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .spinner { width: 44px; height: 44px; border: 3px solid #e8d5c0; border-top-color: #8B4513; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
 .loading-label { color: #888; font-size: 14px; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* GROUND stage: disambiguation + intent panels, centered both ways */
+.ground-stage {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 20px;
+  gap: 18px;
+}
+
+/* ACT stage: result panel, fixed comfortable width, centered */
+.result-stage {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 20px;
+}
+
+.result-stage > * {
+  width: 100%;
+  max-width: 650px;
+}
 
 .ground-header { padding: 16px 20px 0; }
 .ground-label { font-size: 14px; color: #2c1810; font-weight: 600; }
@@ -167,7 +197,7 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 
 
 
-.history { margin: 40px 20px 0; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-top: 3px solid #8B4513; }
+.history { width: calc(100% - 40px); max-width: 650px; margin: 0 auto 40px; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-top: 3px solid #8B4513; }
 .history h4 { margin-bottom: 4px; color: #8B4513; font-family: 'Playfair Display', serif; font-size: 16px; }
 .history-hint { font-size: 12px; color: #aaa; margin-bottom: 12px; }
 .history-item { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 12px; margin-bottom: 4px; background: none; border: none; border-bottom: 1px solid #f0e8e0; cursor: pointer; text-align: left; border-radius: 8px; transition: background .15s; font-family: 'Inter', sans-serif; font-size: 14px; color: #555; }
@@ -175,7 +205,7 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .history-main { display: flex; flex-direction: column; }
 .history-item small { color: #bbb; font-size: 12px; white-space: nowrap; margin-left: 12px; }
 
-.app-footer { text-align: center; margin-top: 48px; padding: 20px; color: #999; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border-top: 1px solid #e0d5c8; font-weight: 500; }
+.app-footer { text-align: center; margin-top: auto; padding: 20px; color: #999; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border-top: 1px solid #e0d5c8; font-weight: 500; }
 
 @media (max-width: 768px) {
   .hero { height: 100px; }

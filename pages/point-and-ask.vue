@@ -219,12 +219,12 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .hero-overlay h1 { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; margin-bottom: 4px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 .hero-overlay p { font-size: 12px; font-weight: 300; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.9; }
 
-.app-container { max-width: 600px; margin: 0 auto; padding: 0 0 40px; }
+.app-container { width: 100%; min-height: 100vh; display: flex; flex-direction: column; padding: 0 0 40px; }
 
 .error-msg { text-align: center; color: #c0392b; background: #fdf0ed; padding: 10px 20px; border-radius: 8px; margin: 12px 20px; border-left: 4px solid #c0392b; }
 
 /* ── CAMERA PAGE ── */
-.camera-page { display: flex; flex-direction: column; align-items: center; padding: 28px 20px 0; gap: 18px; }
+.camera-page { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 28px 20px; gap: 18px; }
 
 .camera-viewfinder {
   width: 100%; max-width: 420px; height: 320px;
@@ -285,13 +285,13 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .popup-btn.ghost:hover { background: #f5f0eb; }
 .popup-enter-active, .popup-leave-active { transition: opacity 0.25s; }
 .popup-enter-from, .popup-leave-to { opacity: 0; }
-
+.camera-page { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 28px 20px; gap: 18px; }
 .repair-options { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
 .repair-btn { display: block; width: 100%; padding: 12px 20px; background: #f5f0eb; color: #2c1810; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; transition: all .2s; text-align: left; font-family: 'Inter', sans-serif; }
 .repair-btn:hover { background: #ede5d8; border-color: #8B4513; }
 .repair-btn.ghost { color: #999; }
 
-.app-footer { text-align: center; margin-top: 48px; padding: 20px; color: #999; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border-top: 1px solid #e0d5c8; font-weight: 500; }
+.app-footer { text-align: center; margin-top: auto; padding: 20px; color: #999; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border-top: 1px solid #e0d5c8; font-weight: 500; }
 
 @media (max-width: 768px) {
   .hero { height: 100px; }

@@ -204,7 +204,7 @@ body {
 
 /* Main container */
 .app-container {
-  max-width: 860px;
+
   margin: 0 auto;
   padding: 0 0 40px;
 }

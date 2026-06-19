@@ -294,7 +294,7 @@
       </button>
 
       <!-- Skip / Next: only when grounding hasn't started -->
-      <button class="nav-btn ghost"
+      <button class="nav-btn secondary"
         v-if="!showGrounding && !groundingAnswer"
         :disabled="currentStep === steps.length - 1"
         @click="nextStep">
@@ -682,7 +682,7 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .hero-overlay h1 { font-family: 'Playfair Display', serif; font-size: 30px; margin-bottom: 4px; }
 .hero-overlay p { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.9; }
 
-.app-container { max-width: 860px; margin: 0 auto; padding: 0 0 40px; }
+.app-container { width: 100%; min-height: 100vh; display: flex; flex-direction: column; padding: 0 0 40px; }
 
 .progress-bar { height: 4px; background: #e0d5c8; }
 .progress-fill { height: 100%; background: #8B4513; transition: width 0.4s ease; }
@@ -784,7 +784,7 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
   font-style: italic; color: #2c1810; font-size: 14.5px; line-height: 1.6;
 }
 
-.tour-card { margin: 20px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #ede5d8; }
+.tour-card { max-width: 650px; margin: 20px auto; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #ede5d8; }
 .card-image-wrap { position: relative; }
 .tour-image { width: 100%; height: 260px; object-fit: cover; display: block; }
 .step-badge { position: absolute; top: 16px; left: 16px; width: 36px; height: 36px; background: #8B4513; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
@@ -878,7 +878,7 @@ body { font-family: 'Inter', sans-serif; background: #f5f0eb; color: #2c1810; }
 .finished-card p { color: #666; line-height: 1.6; margin-bottom: 24px; }
 .finished-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
-.app-footer { text-align: center; margin-top: 48px; padding: 20px; color: #999; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border-top: 1px solid #e0d5c8; font-weight: 500; }
+.app-footer { text-align: center; margin-top: 70px; padding: 20px; color: #999; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border-top: 1px solid #e0d5c8; font-weight: 500; }
 
 @media (max-width: 768px) {
   .hero { height: 100px; }
